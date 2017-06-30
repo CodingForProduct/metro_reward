@@ -1,4 +1,4 @@
-# metro_reward
+# Rides for Rewards
 
 ## Problem Statement
 
