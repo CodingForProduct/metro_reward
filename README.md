@@ -15,7 +15,27 @@ Reward for Metro rides at affiliate businesses
 
 ## User Persona
 
-## App Functions
+- Richard Snyder from this [LA Times article](http://www.latimes.com/local/lanow/la-me-ln-bus-ridership-study-20170518-story.html).
+
+- Occupation : video game tester
+
+- Income: $30-40K a year
+
+- Metro History : used to commute 2 hours each way from Canoga Park
+  to Torrance until he moved to North Hollywood to be closer to train service
+  
+- Interests : video games, tech gadgets, podcasts, burritos, pizza, beer
+
+- Motivation to use App : 
+  * Taking metro anyway, may as well earn free stuff 
+  * Save money by spending less on both needs (food) and toys (tech stuff)
+  
+- Benefits from his Using App : 
+  * Metro gains loyalty & mitigates negative sentiment about long wait times
+  * Local businesses gain awareness, potentially a new customer, frequency of use while he waits for train/bus 
+  * May provide discouragement from seeking alternatives (Uber/Lyft)
+
+## App Functions 
 
 ## Tech Stack
 
