@@ -37,6 +37,8 @@ Reward for Metro rides at affiliate businesses
 
 ## App Functions 
 
+- [App Functionality](https://user-images.githubusercontent.com/22780428/27751020-35a2986e-5d8f-11e7-92a7-68e9029957ec.png)
+
 ## Tech Stack
 
 - **Language:** JavaScript
