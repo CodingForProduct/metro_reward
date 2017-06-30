@@ -39,6 +39,16 @@ Reward for Metro rides at affiliate businesses
 
 - [App Functionality](https://user-images.githubusercontent.com/22780428/27751020-35a2986e-5d8f-11e7-92a7-68e9029957ec.png)
 
+## Phone Functionality UI
+
+- [Initial App Interface](https://user-images.githubusercontent.com/8516378/27664869-c1ede9e4-5c1e-11e7-91e3-7e17ff4e8a64.png)
+
+- [Log-In](https://user-images.githubusercontent.com/8516378/27697252-8d3a5ba8-5ca8-11e7-838a-5943377cccfc.png)
+
+- [Sign-In Existing User Dashboard](https://user-images.githubusercontent.com/8516378/27697267-950879b4-5ca8-11e7-9b36-d24fdf468bfc.png)
+
+- [Cash-Out](https://user-images.githubusercontent.com/8516378/27697279-9b31d84e-5ca8-11e7-9882-cf41c38b38ee.png)
+
 ## Tech Stack
 
 - **Language:** JavaScript
