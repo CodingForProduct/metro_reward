@@ -49,6 +49,9 @@ Reward for Metro rides at affiliate businesses
 
 - [Cash-Out](https://user-images.githubusercontent.com/8516378/27697279-9b31d84e-5ca8-11e7-9882-cf41c38b38ee.png)
 
+- Images used were all from participating sponsors (which would be approved by sponsors themselves)
+  and the client ie LA Metro
+
 ## Tech Stack
 
 - **Language:** JavaScript
