@@ -13,10 +13,16 @@ app.use(bodyParser.urlencoded({extended: true}));
 
 // Root goes to sign-in page with sign-up button
 app.get("/", function(req, res) {
-	res.render("signin");
+	res.render("landing");
 });
 
+app.get("/home", function(req, res) {
+	res.render("home");
+});
 
+app.get("/*", function(req, res) {
+  res.render("404");
+});
 
 // Run app on localhost:3000
 app.listen(3000, function() {
