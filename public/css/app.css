@@ -1,21 +1,88 @@
 /* --------------------- NAV STYLES ---------------------*/
 
-.navbar{background:#15585F;}
+.navbar-default .navbar-brand,
+.navbar-nav > li > a > i,
+.navbar .navbar-text {
+    color: #FFF;
+}
 
+.navbar-default {
+  background:#15585F;
+  border: none;
+  margin-bottom: 0;
+}
+
+.navbar-brand {
+  font-family: 'Racing Sans One', cursive;
+  font-size: 2.2em;
+}
+
+.container-fluid {
+    padding-right: 25px;
+    padding-left: 25px;
+  }
 
 /* ------------------- FOOTER STYLES --------------------*/
-.footer {
-  border-bottom: 300px solid;
-  color: #5D5A97;
+
+.copyright {
+  color: #A4A6A6;
+  font-size: 90%;
+  text-align: center;
+  margin-bottom: 0;
+  text-decoration: none;
+}
+
+.copyright a {
+    color: #EAEAEA;
+}
+
+.navbar-fixed-bottom {
+  background-color: #5D5A97;
+}
+
+#footer {
+  background-color: #5D5A97;
 }
 
 
 /* -------------------- BODY STYLES ---------------------*/
 html body {
+  font-family: 'Roboto', sans-serif;
   background-color: #1D8178;
+	color: #FFF;
+}
+
+.container {
+  background-color: #D0DADB;
+}
+
+#body-container {
+  padding: 20px 15px 500px 15px;
+}
+
+@media (min-width: 768px) {
+  .container {
+    width: 700px;
+  }
+}
+@media (min-width: 992px) {
+  .container {
+    width: 920px;
+  }
+}
+@media (min-width: 1200px) {
+  .container {
+    width: 1100px;
+  }
+}
+
+#metro-logo {
+  height: 150px;
+  width: 150px;;
 }
 
 .circle {
+  font-family: 'Racing Sans One', cursive;
   margin-left: auto;
   margin-right: auto;
   justify-content:center;
@@ -29,40 +96,64 @@ html body {
   background: #000
 }
 
-.plan-trip {
+.hero-navigation {
   margin: 0;
-  background-color: transparent;
   text-align: center;
 }
 
-.see-rewards {
-  margin: 0;
-  background-color: transparent;
-  text-align: center;
+
+/* --------------------- FORM STYLES ----------------------*/
+
+form label {
+  display: inline;
+  font-size: 1.3em;
 }
 
-.btn-group-vertical {
-
+input {
+  margin: 2px;
+  border-radius: 5px;
+  color: #000;
 }
 
-.btn-Plan-my-Trip {
+/* -------------------- BUTTON STYLES ---------------------*/
+
+.btn {
+  font-family: 'Racing Sans One', sans-serif;
   font-size: 20px;
-  color: #fff;
+  color: #FFF;
+  box-shadow: 0 0 1em 0.25em rgba(0,0,0,0.2);
+  text-shadow: 0px 4px 3px rgba(0,0,0,0.4), 0px 8px 13px rgba(0,0,0,0.1), 0px 18px 23px rgba(0,0,0,0.1);
   border-radius: 10px;
-  background: #DC993E;
   padding: 12px 34px;
-  border: 1 none;
-  font-weight: 700;
-  letter-spacing: 1px;
+  letter-spacing: 1.3px;
 }
 
-.btn-See-my-rewards {
-  font-size: 20px;
-  color: #fff;
-  border-radius: 10px;
+.btn-yellow {
+  background: #DC993E;
+}
+
+.btn-red {
   background: #B95314;
-  padding: 10px 24px;
-  border: 0 none;
-  font-weight: 700;
-  letter-spacing: 1px;
+}
+
+.btn:hover {
+  color: #FFF;
+  text-shadow: 0px 6px 5px rgba(0,0,0,0.4), 0px 8px 13px rgba(0,0,0,0.1), 0px 18px 23px rgba(0,0,0,0.1);
+}
+
+.btn-yellow:hover {
+  border: 1px solid #BD791D;
+}
+
+.btn-red:hover {
+  border: 1px solid #973B01;
+}
+
+.button {
+  display: block;
+  margin-top: 3%;
+  margin-bottom: 3%;
+  margin-right: auto;
+  margin-left: auto;
+
 }
