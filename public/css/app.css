@@ -1,0 +1,68 @@
+/* --------------------- NAV STYLES ---------------------*/
+
+.navbar{background:#15585F;}
+
+
+/* ------------------- FOOTER STYLES --------------------*/
+.footer {
+  border-bottom: 300px solid;
+  color: #5D5A97;
+}
+
+
+/* -------------------- BODY STYLES ---------------------*/
+html body {
+  background-color: #1D8178;
+}
+
+.circle {
+  margin-left: auto;
+  margin-right: auto;
+  justify-content:center;
+  width: 150px;
+  height: 150px;
+  border-radius: 150px;
+  font-size: 15px;
+  color: #fff;
+  line-height: 150px;
+  text-align: center;
+  background: #000
+}
+
+.plan-trip {
+  margin: 0;
+  background-color: transparent;
+  text-align: center;
+}
+
+.see-rewards {
+  margin: 0;
+  background-color: transparent;
+  text-align: center;
+}
+
+.btn-group-vertical {
+
+}
+
+.btn-Plan-my-Trip {
+  font-size: 20px;
+  color: #fff;
+  border-radius: 10px;
+  background: #DC993E;
+  padding: 12px 34px;
+  border: 1 none;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.btn-See-my-rewards {
+  font-size: 20px;
+  color: #fff;
+  border-radius: 10px;
+  background: #B95314;
+  padding: 10px 24px;
+  border: 0 none;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
