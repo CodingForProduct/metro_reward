@@ -10,3 +10,4 @@ Thumbs.db
 # Media Files #
 ######################
 image-source/*
+node_modules
