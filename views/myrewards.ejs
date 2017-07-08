@@ -1,0 +1,22 @@
+<% include partials/head %>
+<% include partials/nav %>
+
+
+<h1>Hi <%= user[0].first %></h1>
+
+<h3>You have <%= user[0].pointsBalance %> points!</h3>
+
+
+<% vendors.forEach(function(vendor) { %>
+<ul>
+	<li>
+		<strong><%= vendor.name %></strong> - <%= vendor.reward %> - <%= vendor.pointsNeeded %>
+	</li>
+</ul>
+<%	}); %>
+
+
+
+
+
+<% include partials/footer %>
