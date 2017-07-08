@@ -101,6 +101,12 @@ html body {
   text-align: center;
 }
 
+.content-wrapper {
+  background-color: grey;
+  margin-left: 150px;
+  margin-right: 150p
+}
+
 
 /* --------------------- FORM STYLES ----------------------*/
 
