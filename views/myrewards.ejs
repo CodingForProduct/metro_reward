@@ -2,17 +2,30 @@
 <% include partials/nav %>
 
 
-<h1>Hi <%= user[0].first %></h1>
-
-<h3>You have <%= user[0].pointsBalance %> points!</h3>
+<h1 class="page-head">My Points Balance:</h1>
 
 
+<div class="circle">
+  <%= user[2].pointsBalance %>
+</div>
+<div class="page-head">
+  <h3><%= user[2].first %></h3>
+</div>
+
+<h1 class="page-head">Choose A Reward:</h1>
 <% vendors.forEach(function(vendor) { %>
-<ul>
-	<li>
-		<strong><%= vendor.name %></strong> - <%= vendor.reward %> - <%= vendor.pointsNeeded %>
-	</li>
-</ul>
+  <div class="reward-item">
+      <div class="points-needed">
+        <p><%= vendor.pointsNeeded %></p>
+        <p id="points-text">POINTS</p>
+      </div>
+      <div class="vendor-img">
+        <img src="<%= vendor.imgURL %>" alt="<%= vendor.name %>" class="img-responsive vendor-logo">
+      </div>
+      <div class="vendor-reward">
+        <p><%= vendor.reward %></p>
+      </div>
+  </div>
 <%	}); %>
 
 
