@@ -1,11 +1,11 @@
 <% include partials/head %>
 <% include partials/nav %>
 
-
-<h1>Hi <%= user[0].first %></h1>
-
-<h3>You have <%= user[0].pointsBalance %> points!</h3>
-
+<% user.forEach(function(user) { %>
+<h1>Hi <%= user.first %></h1>
+<h1>Hi <%= user.email %></h1>
+<h3>You have <%= user.pointsBalance %> points!</h3>
+<%	}); %>
 
 <% vendors.forEach(function(vendor) { %>
 <ul>

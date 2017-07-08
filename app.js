@@ -61,6 +61,17 @@ app.get("/home", function(req, res) {
 	res.render("home");
 });
 
+app.post("/myrewards", function(req, res) {
+	var first = req.body.first;
+	var last = req.body.last;
+	var email = req.body.email;
+	var tapNum = req.body.tapNum;
+	var newUser = {first: first, last: last, email: email, tapNum: tapNum, pointsBalance: 0};
+	
+	user.push(newUser);
+	res.redirect("/myrewards");
+})
+
 app.get("/myrewards", function(req, res) {
 	res.render("myrewards", {user: user, vendors:vendors});
 })
