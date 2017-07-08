@@ -102,9 +102,10 @@ html body {
 }
 
 .content-wrapper {
-  background-color: grey;
-  margin-left: 150px;
-  margin-right: 150p
+  margin-left: 10%;
+  margin-right: 10%;
+  padding: 0px 20px;
+  color: #000;
 }
 
 

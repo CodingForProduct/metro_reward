@@ -65,6 +65,10 @@ app.get("/myrewards", function(req, res) {
 	res.render("myrewards", {user: user, vendors:vendors});
 })
 
+app.get("/signup", function(req, res) {
+	res.render("signup");
+})
+
 app.get("/*", function(req, res) {
   res.render("404");
 });
