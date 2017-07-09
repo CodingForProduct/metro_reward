@@ -59,10 +59,12 @@ input {
 
 .btn {
   margin: 0px 10px;
+	max-width: 300px;
 }
 
-button {
-  margin: 5px;
+#sign-in-button,
+#sign-up-button {
+	max-width: 150px;
 }
 
 .footer {
