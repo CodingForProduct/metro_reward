@@ -1,0 +1,36 @@
+<% include partials/head %>
+<% include partials/nav %>
+
+<div class="row">
+  <div class="col-md-12">
+    <form role="form" action="/home" method="post">
+      <div class="form-group">
+        <label>First Name:</label>
+		    <input class="form-control" type="text" id="firstname" name="first"/>
+      </div>
+      <div class="form-group">
+        <label>Last Name:</label>
+		    <input class="form-control" type="text" id="lastname" name="last"/>
+      </div>
+      <div class="form-group">
+        <label>Email:</label>
+		    <input class="form-control" type="email" id="email" name="email" placeholder="Your email address" />
+      </div>
+      <div class="form-group">
+        <label>TAP #:</label>
+        <input class="form-control" type="text" id="tap_id" name="tapNum" placeholder="AA xx xx xxxxx xxxxx" />
+      </div>
+      <div class="form-group">
+        <label>Password:</label>
+		    <input class="form-control" type="password" placeholder="Create a password" />
+      </div>
+      <div class="button">
+        <a href="/home"><button type="submit" class="btn btn-red center-block">Metro Rewards!</button></a>
+      </div>
+    </form>
+
+  </div>
+</div>
+
+
+<% include partials/footer %>

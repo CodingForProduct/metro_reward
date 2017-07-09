@@ -37,7 +37,8 @@ Reward for Metro rides at affiliate businesses
 
 ## App Functions 
 
-- [App Functionality](https://user-images.githubusercontent.com/22780428/27751020-35a2986e-5d8f-11e7-92a7-68e9029957ec.png)
+- [App Functionality](https://user-images.githubusercontent.com/22780428/27877991-96e77bea-6171-11e7-86e8-240289f2658d.png)
+
 
 ## Phone Functionality UI
 
