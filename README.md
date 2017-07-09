@@ -56,7 +56,8 @@ Reward for Metro rides at affiliate businesses
 ## Tech Stack
 
 - **Language:** JavaScript
-- **Frameworks:** Node.js / Express 
+- **Frameworks:** Node.js / Express / Boostrap.js
+- **Database:** MongoDB / Postgres
 
 ## Team Members
 
