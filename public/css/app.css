@@ -1,26 +1,63 @@
 /* --------------------- NAV STYLES ---------------------*/
 
-.navbar-default .navbar-brand,
-.navbar-nav > li > a > i,
-.navbar .navbar-text {
-    color: #FFF;
-}
-
 .navbar-default {
   background:#15585F;
   border: none;
   margin-bottom: 0;
 }
 
-.navbar-brand {
-  font-family: 'Racing Sans One', cursive;
-  font-size: 2.2em;
+.container-fluid {
+  padding-right: 25px;
+  padding-left: 25px;
+  }
+
+a.navbar-brand img {
+  float: left;
+  margin-top: -5%;
 }
 
-.container-fluid {
-    padding-right: 25px;
-    padding-left: 25px;
-  }
+a.navbar-brand p {
+  float: left;
+}
+
+.navbar-default .navbar-brand,
+.navbar .navbar-text,
+.navbar-default .navbar-nav > li > a,
+.dropdown-menu li {
+  font-family: 'Racing Sans One', cursive;
+  color: #FFFFFF;
+  font-size: 1.5em;
+}
+
+.navbar-default .navbar-brand,
+.navbar .navbar-text,
+.navbar-default .navbar-nav > li > a {
+  text-shadow: 0px 4px 3px rgba(0,0,0,0.4), 0px 8px 13px rgba(0,0,0,0.1), 0px 18px 23px rgba(0,0,0,0.1);
+}
+
+.navbar-default .navbar-brand:hover,
+.navbar-default .navbar-brand:focus,
+.navbar-default .navbar-nav > li > a:hover,
+.navbar-default .navbar-nav > li > a:focus {
+  color: #FFFFFF;
+  text-shadow: 0px 2px 1px rgba(0,0,0,0.4), 0px 4px 6px rgba(0,0,0,0.1), 0px 9px 11px rgba(0,0,0,0.1);
+}
+
+.navbar-nav > li > a > i:focus,
+.navbar-default .navbar-nav > .open > a,
+.navbar-default .navbar-nav > .open > a:hover,
+.navbar-default .navbar-nav > .open > a:focus {
+    background-color: #FFFFFF;
+    color: #000000;
+}
+
+.navbar-nav > li > a > i {
+  color: #FFFFFF;
+}
+
+.dropdown-menu {
+  width: 100%;
+}
 
 /* ------------------- FOOTER STYLES --------------------*/
 
