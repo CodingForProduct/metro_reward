@@ -3,14 +3,23 @@
 
 <div class="row">
   <div class="col-lg-12">
-    <img src="/img/metro-logo-400x400.png" alt="metro logo" class="img-responsive center-block" id="metro-logo">
+    <!-- <img src="/img/metro-logo-400x400.png" alt="metro logo" class="img-responsive center-block" id="metro-logo"> -->
     <!-- <div class="circle">Rides for Rewards</div> -->
+    <h2 class="page-head"><strong>Hi <%= user[0].first %>!</strong> Your points balance is:</h2>
+    <div class="circle">
+      <%= user[0].pointsBalance %>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-lg-12">
+    <h2 class="page-head">What would you like to do?</h2>
     <div class="hero-navigation">
       <div class="button">
-        <button type="button" class="btn btn-yellow center-block">Plan My Trip</button>
+        <a href="https://www.metro.net/riding/trip-planner/" class="btn btn-yellow center-block" target="_blank">Plan My Trip</a>
       </div>
       <div class="button">
-        <a href="/myrewards"><button type="button" class="btn btn-red center-block">Get Rewards</button></a>
+        <a href="/myrewards" class="btn btn-red center-block">Get Rewards</a>
       </div>
     </div>
   </div>

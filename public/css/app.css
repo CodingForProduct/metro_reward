@@ -94,7 +94,7 @@ html body {
 }
 
 #body-container {
-  padding: 20px 15px 500px 15px;
+  padding: 5px 15px 500px 15px;
 }
 
 @media (min-width: 768px) {
@@ -174,6 +174,7 @@ input {
   border-radius: 10px;
   padding: 12px 34px;
   letter-spacing: 1.3px;
+  max-width: 300px;
 }
 
 .btn-yellow {
@@ -199,10 +200,7 @@ input {
 
 .button {
   display: block;
-  margin-top: 3%;
-  margin-bottom: 3%;
-  margin-right: auto;
-  margin-left: auto;
+  margin: 3% auto;
 }
 
 
