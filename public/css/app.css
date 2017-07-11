@@ -257,6 +257,7 @@ input {
   min-height: 70px;
   padding: 5px;
   margin: 5px auto;
+  cursor: pointer;
 }
 
 @media (max-width: 768px) {
@@ -302,4 +303,11 @@ input {
 
 .vendor-reward p {
   margin: 0;
+}
+
+
+/* -------------------- MODAL STYLES ---------------------*/
+
+.modal-content {
+  background-color: #D0DADB;
 }
