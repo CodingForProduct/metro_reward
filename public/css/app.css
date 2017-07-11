@@ -274,7 +274,6 @@ input {
   font-family: 'Racing Sans One', cursive;
   font-size: 2.5em;
   line-height: 0.8;
-  /*bordeR: 2px solid orange;*/
 }
 
 #points-text {
@@ -287,8 +286,7 @@ input {
 
 .vendor-img {
   display: inline-block;
-  margin: 0 5%;
-  /*border: 2px solid purple;*/
+  margin: 0 20%;
 }
 
 .vendor-logo {
@@ -300,7 +298,6 @@ input {
   display: inline-block;
   font-family: 'Racing Sans One', cursive;
   font-size: 1.7em;
-  /*border: 2px solid blue;*/
 }
 
 .vendor-reward p {
