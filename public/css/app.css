@@ -178,6 +178,21 @@ html body {
   text-align: center;
 }
 
+.how-to-header {
+  margin-top: 0;
+}
+
+.how-to-row {
+  margin-bottom: 8%;
+}
+
+.how-to-check {
+  float: right;
+}
+
+.how-to-descrip {
+  font-size: 1.2em;
+}
 
 /* --------------------- FORM STYLES ----------------------*/
 
