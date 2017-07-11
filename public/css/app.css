@@ -254,10 +254,15 @@ input {
   border: 1px solid grey;
   border-radius: 5px;
   max-width: 400px;
-  height: 70px;
+  min-height: 70px;
   padding: 5px;
   margin: 5px auto;
-  /*overflow: hidden;*/
+}
+
+@media (max-width: 768px) {
+  .reward-item {
+    max-width: 250px;
+  }
 }
 
 .reward-item > div {
@@ -269,7 +274,6 @@ input {
   font-family: 'Racing Sans One', cursive;
   font-size: 2.5em;
   line-height: 0.8;
-  height: 70px;
   /*bordeR: 2px solid orange;*/
 }
 
@@ -283,7 +287,6 @@ input {
 
 .vendor-img {
   display: inline-block;
-  height: 70px;
   margin: 0 5%;
   /*border: 2px solid purple;*/
 }
@@ -297,7 +300,6 @@ input {
   display: inline-block;
   font-family: 'Racing Sans One', cursive;
   font-size: 1.7em;
-  height: 70px;
   /*border: 2px solid blue;*/
 }
 

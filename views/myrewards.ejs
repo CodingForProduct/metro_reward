@@ -1,27 +1,41 @@
 <% include partials/head %>
 
-
-<h2 class="page-head">My Points Balance:</h2>
-
-
-<div class="circle">
-  <%= user[0].pointsBalance %>
+<div class="row">
+  <div class="col-xs-12">
+    <h2 class="page-head">My Points Balance:</h2>
+  </div>
+</div>
+<div class="row">
+  <div class="col-xs-12">
+    <div class="circle">
+      <%= user[0].pointsBalance %>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-xs-12">
+    <h2 class="page-head">Choose A Reward:</h2>
+  </div>
 </div>
 
-
-<h2 class="page-head">Choose A Reward:</h2>
 <% vendors.forEach(function(vendor) { %>
-  <div class="reward-item">
+  <div class="row reward-item">
+    <div class="col-xs-6 col-sm-2">
       <div class="points-needed">
         <p><%= vendor.pointsNeeded %></p>
         <p id="points-text">POINTS</p>
       </div>
+    </div>
+    <div class="col-xs-6 col-sm-2">
       <div class="vendor-img">
         <img src="<%= vendor.imgURL %>" alt="<%= vendor.name %>" class="img-responsive vendor-logo">
       </div>
+    </div>
+    <div class="col-xs-12 col-sm-8">
       <div class="vendor-reward">
         <p><%= vendor.reward %></p>
       </div>
+    </div>
   </div>
 <%	}); %>
 
