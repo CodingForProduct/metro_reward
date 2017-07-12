@@ -57,6 +57,10 @@ app.get("/", function(req, res) {
 	res.render("landing");
 });
 
+app.get("/signup", function(req, res) {
+	res.render("signup");
+})
+
 app.get("/home", function(req, res) {
 	res.render("home", {user: user, vendors:vendors});
 });
@@ -76,8 +80,8 @@ app.get("/myrewards", function(req, res) {
 	res.render("myrewards", {user: user, vendors:vendors});
 })
 
-app.get("/signup", function(req, res) {
-	res.render("signup");
+app.get("/earnpoints", function(req, res) {
+	res.render("earnpoints");
 })
 
 app.get("/*", function(req, res) {

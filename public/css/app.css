@@ -1,26 +1,92 @@
 /* --------------------- NAV STYLES ---------------------*/
 
-.navbar-default .navbar-brand,
-.navbar-nav > li > a > i,
-.navbar .navbar-text {
-    color: #FFF;
-}
-
 .navbar-default {
   background:#15585F;
   border: none;
   margin-bottom: 0;
 }
 
-.navbar-brand {
-  font-family: 'Racing Sans One', cursive;
-  font-size: 2.2em;
+.container-fluid {
+  padding-right: 25px;
+  padding-left: 25px;
+  }
+
+a.navbar-brand img {
+  float: left;
+  margin-top: -5%;
 }
 
-.container-fluid {
-    padding-right: 25px;
-    padding-left: 25px;
+a.navbar-brand p {
+  float: left;
+}
+
+.navbar-default .navbar-brand,
+.navbar .navbar-text,
+.navbar-default .navbar-nav > li > a,
+.dropdown-menu li {
+  font-family: 'Racing Sans One', cursive;
+  color: #FFFFFF;
+  font-size: 1.5em;
+}
+
+.navbar-default .navbar-brand,
+.navbar .navbar-text,
+.navbar-default .navbar-nav > li > a {
+  text-shadow: 0px 4px 3px rgba(0,0,0,0.4), 0px 8px 13px rgba(0,0,0,0.1), 0px 18px 23px rgba(0,0,0,0.1);
+}
+
+.navbar-default .navbar-brand:hover,
+.navbar-default .navbar-brand:focus,
+.navbar-default .navbar-nav > li > a:hover,
+.navbar-default .navbar-nav > li > a:focus {
+  color: #FFFFFF;
+  text-shadow: 0px 2px 1px rgba(0,0,0,0.4), 0px 4px 6px rgba(0,0,0,0.1), 0px 9px 11px rgba(0,0,0,0.1);
+}
+
+.navbar-nav > li > a > i:focus,
+.navbar-default .navbar-nav > .open > a,
+.navbar-default .navbar-nav > .open > a:hover,
+.navbar-default .navbar-nav > .open > a:focus {
+    background-color: #FFFFFF;
+    color: #000000;
+}
+
+.navbar-nav > li > a > i {
+  color: #FFFFFF;
+}
+
+.dropdown-menu {
+  width: 100%;
+}
+
+.navbar-default .navbar-toggle {
+  border-radius: 50%;
+  border: 1px solid #000000;
+  background-color: #000000;
+}
+
+.navbar-default .navbar-toggle .icon-bar {
+    background-color: #FFFFFF;
+    width: 15px;
+}
+
+.navbar-default .navbar-toggle:hover,
+.navbar-default .navbar-toggle:focus {
+    background-color: #15585F;
+}
+
+@media (max-width: 767px) {
+  .navbar-default .navbar-nav .open .dropdown-menu > li > a {
+    color: #FFFFFF;
   }
+}
+
+@media (max-width: 767px) {
+  .navbar-default .navbar-nav .open .dropdown-menu > li > a:hover, .navbar-default .navbar-nav .open .dropdown-menu > li > a:focus {
+    color: #FFFFFF;
+    text-shadow: 0px 2px 1px rgba(0,0,0,0.4), 0px 4px 6px rgba(0,0,0,0.1), 0px 9px 11px rgba(0,0,0,0.1);
+  }
+}
 
 /* ------------------- FOOTER STYLES --------------------*/
 
@@ -112,6 +178,21 @@ html body {
   text-align: center;
 }
 
+.how-to-header {
+  margin-top: 0;
+}
+
+.how-to-row {
+  margin-bottom: 8%;
+}
+
+.how-to-check {
+  float: right;
+}
+
+.how-to-descrip {
+  font-size: 1.2em;
+}
 
 /* --------------------- FORM STYLES ----------------------*/
 
@@ -173,10 +254,16 @@ input {
   border: 1px solid grey;
   border-radius: 5px;
   max-width: 400px;
-  height: 70px;
+  min-height: 70px;
   padding: 5px;
   margin: 5px auto;
-  /*overflow: hidden;*/
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .reward-item {
+    max-width: 250px;
+  }
 }
 
 .reward-item > div {
@@ -188,8 +275,6 @@ input {
   font-family: 'Racing Sans One', cursive;
   font-size: 2.5em;
   line-height: 0.8;
-  height: 70px;
-  /*bordeR: 2px solid orange;*/
 }
 
 #points-text {
@@ -202,9 +287,7 @@ input {
 
 .vendor-img {
   display: inline-block;
-  height: 70px;
-  margin: 0 5%;
-  /*border: 2px solid purple;*/
+  margin: 0 20%;
 }
 
 .vendor-logo {
@@ -216,10 +299,15 @@ input {
   display: inline-block;
   font-family: 'Racing Sans One', cursive;
   font-size: 1.7em;
-  height: 70px;
-  /*border: 2px solid blue;*/
 }
 
 .vendor-reward p {
   margin: 0;
+}
+
+
+/* -------------------- MODAL STYLES ---------------------*/
+
+.modal-content {
+  background-color: #D0DADB;
 }
