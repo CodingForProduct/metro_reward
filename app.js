@@ -5,9 +5,10 @@ var bodyParser = require("body-parser");
 var request = require("request");
 var Sequelize = require("sequelize");
 
-var connection = new Sequelize('metrodb', 'root', 'password', {
+var connection = new Sequelize('metrodb', 'postgres', 'Vipee99', {
 	host: 'localhost',
 	dialect: 'postgres',
+	port: 5299,
 	pool: {
 	 max: 5,
 	 min: 0,
@@ -32,8 +33,15 @@ var Vendor = connection.define('vendor', {
 	imgURL: Sequelize.STRING
 });
 
-connection.sync();
-
+//connection.sync();
+connection
+  .authenticate()
+  .then(() => {
+    console.log('Connection has been established successfully.');
+  })
+  .catch(err => {
+    console.error('Unable to connect to the database:', err);
+  });
 // Use node modules
 app.set("view engine", "ejs");
 app.use(express.static("public"));
