@@ -14,6 +14,25 @@ var connection = new Sequelize('metroDb', 'username', 'password', {
  }
 });
 
+// ******* MODELS ********
+
+var User = connection.define('user', {
+	first: Sequelize.STRING,
+	last: Sequelize.STRING,
+	email: Sequelize.STRING,
+	pointsBalance: Sequelize.INTEGER,
+	tapNum: Sequelize.INTEGER
+});
+
+var Vendor = connection.define('vendor', {
+	name: Sequelize.STRING,
+	reward: Sequelize.STRING,
+	pointsNeeded: Sequelize.INTEGER,
+	imgURL: Sequelize.STRING
+});
+
+connection.sync();
+
 // Use node modules
 app.set("view engine", "ejs");
 app.use(express.static("public"));
