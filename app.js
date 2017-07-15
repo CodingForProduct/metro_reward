@@ -23,7 +23,7 @@ var User = connection.define('user', {
 	last: Sequelize.STRING,
 	email: Sequelize.STRING,
 	pointsBalance: Sequelize.INTEGER,
-	tapNum: Sequelize.INTEGER
+	tapNum: Sequelize.STRING
 });
 
 var Vendor = connection.define('vendor', {
