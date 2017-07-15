@@ -56,7 +56,7 @@ connection.sync().then(function () {
 		last: 'Bello',
 		email: 'a@b.com',
 		pointsBalance: 697,
-		tapNum: 1234567891012131
+		tapNum: '1234567891012131'
 	});
 });
 
