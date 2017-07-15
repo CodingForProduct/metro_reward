@@ -5,7 +5,7 @@ var bodyParser = require("body-parser");
 var request = require("request");
 var Sequelize = require("sequelize");
 
-var connection = new Sequelize('metrodb', 'postgres', 'Vipee99', {
+var connection = new Sequelize('metrodb', 'metroadmin', 'beer', {
 	host: 'localhost',
 	dialect: 'postgres',
 	port: 5299,
@@ -42,10 +42,23 @@ connection
   .catch(err => {
     console.error('Unable to connect to the database:', err);
   });
+
 // Use node modules
 app.set("view engine", "ejs");
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({extended: true}));
+
+// ******* TABLE DATA *******
+
+connection.sync().then(function () {
+	User.create({
+		first: 'John',
+		last: 'Bello',
+		email: 'a@b.com',
+		pointsBalance: 697,
+		tapNum: 1234567891012131
+	});
+});
 
 // ******* SEED DATA ********
 
