@@ -6,6 +6,7 @@ var request = require("request");
 var Sequelize = require("sequelize");
 
 var connection = new Sequelize('metrodb', 'username', 'password', {
+	host: 'localhost',
 	dialect: 'postgres',
 	pool: {
 	 max: 5,
