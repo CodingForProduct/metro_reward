@@ -3,6 +3,16 @@ var express = require("express");
 var app = express();
 var bodyParser = require("body-parser");
 var request = require("request");
+var Sequelize = require("sequelize");
+
+var connection = new Sequelize('metroDb', 'username', 'password', {
+	dialect: 'postgres',
+	pool: {
+	 max: 5,
+	 min: 0,
+	 idle: 10000
+ }
+});
 
 // Use node modules
 app.set("view engine", "ejs");
