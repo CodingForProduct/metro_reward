@@ -5,7 +5,7 @@ var bodyParser = require("body-parser");
 var request = require("request");
 var Sequelize = require("sequelize");
 
-var connection = new Sequelize('metroDb', 'username', 'password', {
+var connection = new Sequelize('metrodb', 'username', 'password', {
 	dialect: 'postgres',
 	pool: {
 	 max: 5,
