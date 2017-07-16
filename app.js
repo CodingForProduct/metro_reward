@@ -8,7 +8,7 @@ var Sequelize = require("sequelize");
 var connection = new Sequelize('metrodb', 'metroadmin', 'beer', {
 	host: 'localhost',
 	dialect: 'postgres',
-	port: 5299,
+	port: 5432,
 	pool: {
 	 max: 5,
 	 min: 0,
@@ -23,7 +23,8 @@ var User = connection.define('user', {
 	last: Sequelize.STRING,
 	email: Sequelize.STRING,
 	pointsBalance: Sequelize.INTEGER,
-	tapNum: Sequelize.STRING
+	tapNum: Sequelize.STRING,
+	password: Sequelize.STRING
 });
 
 var Vendor = connection.define('vendor', {
@@ -50,15 +51,18 @@ app.use(bodyParser.urlencoded({extended: true}));
 
 // ******* TABLE DATA *******
 
-connection.sync().then(function () {
-	User.create({
-		first: 'John',
-		last: 'Bello',
-		email: 'a@b.com',
-		pointsBalance: 697,
-		tapNum: '1234567891012131'
-	});
-});
+// FIGURE OUT HOW TO REMOVE THIS SO WE DON'T CREATE A NEW USER EVERY TIME THE APP STARTS
+connection.sync();
+// .then(function () {
+// 	User.create({
+// 		first: 'John',
+// 		last: 'Bello',
+// 		email: 'a@b.com',
+// 		pointsBalance: 697,
+// 		tapNum: '1234567891012131',
+// 		password: '123'
+// 	});
+// });
 
 // ******* SEED DATA ********
 
@@ -108,20 +112,31 @@ app.get("/", function(req, res) {
 	res.render("landing");
 });
 
+// FIGURE OUT HOW TO DISPLAY THIS USER'S INFO
 app.get("/home", function(req, res) {
+	connection.sync().then(function () {
+		User.find({
+		});
+	});
 	res.render("home", {user: user, vendors:vendors});
 });
 
-app.post("/myrewards", function(req, res) {
+app.post("/home", function(req, res) {
 	var first = req.body.first;
 	var last = req.body.last;
 	var email = req.body.email;
 	var tapNum = req.body.tapNum;
-	var newUser = {first: first, last: last, email: email, tapNum: tapNum, pointsBalance: 0};
+	var password = req.body.password;
+	var newUser = {first: first, last: last, email: email, tapNum: tapNum, pointsBalance: 0, password: password};
 
-	user.push(newUser);
-	res.redirect("/myrewards");
-})
+	User.create(newUser, function(err, addedUser) {
+		if (err) {
+			console.log(err);
+		} else {
+			res.redirect("/home");
+		}
+	});
+});
 
 app.get("/myrewards", function(req, res) {
 	res.render("myrewards", {user: user, vendors:vendors});
