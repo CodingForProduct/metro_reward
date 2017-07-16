@@ -113,6 +113,10 @@ app.get("/", function(req, res) {
 });
 
 // FIGURE OUT HOW TO DISPLAY THIS USER'S INFO
+app.get("/signup", function(req, res) {
+	res.render("signup");
+})
+
 app.get("/home", function(req, res) {
 	connection.sync().then(function () {
 		User.find({
@@ -142,8 +146,8 @@ app.get("/myrewards", function(req, res) {
 	res.render("myrewards", {user: user, vendors:vendors});
 })
 
-app.get("/signup", function(req, res) {
-	res.render("signup");
+app.get("/earnpoints", function(req, res) {
+	res.render("earnpoints");
 })
 
 app.get("/*", function(req, res) {

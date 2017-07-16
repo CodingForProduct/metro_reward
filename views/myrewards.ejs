@@ -1,33 +1,74 @@
 <% include partials/head %>
-<% include partials/nav %>
 
-
-<h2 class="page-head">My Points Balance:</h2>
-
-
-<div class="circle">
-  <%= user[0].pointsBalance %>
+<div class="row">
+  <div class="col-xs-12">
+    <h2 class="page-head">My Points Balance:</h2>
+  </div>
+</div>
+<div class="row">
+  <div class="col-xs-12">
+    <div class="circle">
+      <%= user[0].pointsBalance %>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-xs-12">
+    <h2 class="page-head">Choose A Reward:</h2>
+  </div>
 </div>
 
-
-<h2 class="page-head">Choose A Reward:</h2>
 <% vendors.forEach(function(vendor) { %>
-  <div class="reward-item">
+  <div class="row reward-item">
+    <div class="col-xs-6 col-sm-2">
       <div class="points-needed">
         <p><%= vendor.pointsNeeded %></p>
         <p id="points-text">POINTS</p>
       </div>
+    </div>
+    <div class="col-xs-6 col-sm-2">
       <div class="vendor-img">
         <img src="<%= vendor.imgURL %>" alt="<%= vendor.name %>" class="img-responsive vendor-logo">
       </div>
+    </div>
+    <div class="col-xs-12 col-sm-8">
       <div class="vendor-reward">
         <p><%= vendor.reward %></p>
       </div>
+    </div>
   </div>
 <%	}); %>
 
+<!-- Redeem confirmation modal -->
+<div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" id="confirm-modal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">You will redeem XXX points for XXX REWARD</h4>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-yellow" id="modal-btn-confirm">Confirm</button>
+        <button type="button" class="btn btn-red" id="modal-btn-cancel">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
 
-
+<!-- Redeem success modal -->
+<div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" id="success-modal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Success! XXX points have been deducted from your account. <br>Check your email for your redemption voucher.</h4>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-yellow" id="modal-btn-close">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 
 <% include partials/footer %>
