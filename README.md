@@ -66,6 +66,14 @@ Reward for Metro rides at affiliate businesses
 - [kammitama5](https://github.com/kammitama5)
 - [niamurrell](https://github.com/niamurrell)
 
+## Live Link
+
+- Insert Live Link
+
+## Installation 
+
+Requirements : Node, Postgres, Yarn
+
 ## Bug Report/ Fixes
 
 - To file or report a bug, please open a separate issue (with a tag) or make a pull request.
