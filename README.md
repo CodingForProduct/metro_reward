@@ -76,4 +76,4 @@ Requirements : Node, Postgres, Yarn
 
 ## Bug Report/ Fixes
 
-- To file or report a bug, please open a [separate issue](https://github.com/CodingForProduct/metro_reward/issues/new) or make a pull request.
+- To file or report a bug, please [open an issue](https://github.com/CodingForProduct/metro_reward/issues/new) or make a pull request.
