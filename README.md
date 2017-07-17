@@ -58,7 +58,7 @@ Reward for Metro rides at affiliate businesses
 - **Language:** JavaScript
 - **Frameworks:** Node.js / Express / Boostrap.js
 - **Package Managers:** Npm (Node Package Manager), Yarn
-- **Database:** Postgres
+- **Database:** PostgreSQL
 
 ## Team Members
 
