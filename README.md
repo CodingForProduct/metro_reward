@@ -68,7 +68,7 @@ Reward for Metro rides at affiliate businesses
 
 ## Live Link
 
-- Insert Live Link
+- **Insert Live Link**
 
 ## Installation 
 
@@ -76,4 +76,4 @@ Requirements : Node, Postgres, Yarn
 
 ## Bug Report/ Fixes
 
-- To file or report a bug, please open a separate issue (with a tag) or make a pull request.
+- To file or report a bug, please open a separate issue or make a pull request.
