@@ -57,10 +57,15 @@ Reward for Metro rides at affiliate businesses
 
 - **Language:** JavaScript
 - **Frameworks:** Node.js / Express / Boostrap.js
-- **Database:** MongoDB / Postgres
+- **Package Managers:** Npm (Node Package Manager), Yarn
+- **Database:** Postgres
 
 ## Team Members
 
 - [badickens](https://github.com/badickens)
 - [kammitama5](https://github.com/kammitama5)
 - [niamurrell](https://github.com/niamurrell)
+
+## Bug Report/ Fixes
+
+- To file or report a bug, please open a separate issue (with a tag) or make a pull request.
