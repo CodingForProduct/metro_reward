@@ -13,21 +13,22 @@ var bcrypt = require("bcrypt");
 // Use node modules
 app.set("view engine", "ejs");
 app.use(express.static("public"));
+require('dotenv').config()
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({extended: true}));
-app.use(flash());
-app.use(session({
-  secret: process.env.SESSION_SECRET,
-  store: store
-}));
+// app.use(flash());
+// app.use(session({
+//   secret: process.env.SESSION_SECRET,
+//   store: store
+// }));
 app.use(passport.initialize());
 app.use(passport.session());
 
 // Connect to postgres db via sequelize
-var connection = new Sequelize('metrodb', 'metroadmin', 'beer', {
-	host: 'localhost',
+var connection = new Sequelize(process.env.DB_NAME, process.env.PG_USER, process.env.PG_PASS, {
+	host: process.env.PG_HOST,
 	dialect: 'postgres',
-	port: 5432,
+	port: process.env.PG_PORT,
 	pool: {
 	 max: 5,
 	 min: 0,
