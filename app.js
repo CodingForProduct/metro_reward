@@ -7,8 +7,23 @@ var request = require("request");
 var Sequelize = require("sequelize");
 var flash = require("connect-flash");
 var passport = require("passport");
-var LocalStrategy = require('passport-local').Strategy;
+var LocalStrategy = require("passport-local").Strategy;
+var bcrypt = require("bcrypt");
 
+// Use node modules
+app.set("view engine", "ejs");
+app.use(express.static("public"));
+app.use(cookieParser());
+app.use(bodyParser.urlencoded({extended: true}));
+app.use(flash());
+app.use(session({
+  secret: process.env.SESSION_SECRET,
+  store: store
+}));
+app.use(passport.initialize());
+app.use(passport.session());
+
+// Connect to postgres db via sequelize
 var connection = new Sequelize('metrodb', 'metroadmin', 'beer', {
 	host: 'localhost',
 	dialect: 'postgres',
@@ -20,46 +35,18 @@ var connection = new Sequelize('metrodb', 'metroadmin', 'beer', {
  }
 });
 
-// Use node modules
-app.set("view engine", "ejs");
-app.use(express.static("public"));
-app.use(cookieParser());
-app.use(bodyParser.urlencoded({extended: true}));
-app.use(flash());
-app.use(passport.initialize());
-app.use(passport.session());
-
-passport.use(new LocalStrategy({
-    usernameField: 'email'
-  },
-  function(username, password, done) {
-    User.findOne({ username: username }, function (err, user) {
-      if (err) { return done(err); }
-      if (!user) {
-        return done(null, false, { message: 'Incorrect username.' });
-      }
-      if (!user.validPassword(password)) {
-        return done(null, false, { message: 'Incorrect password.' });
-      }
-      return done(null, user);
-    });
-  }
-));
-
-passport.serializeUser(function(user, done) {
-  done(null, user.id);
-});
-
-passport.deserializeUser(function(id, done) {
-  User.findById(id, function(err, user) {
-    done(err, user);
+connection.sync();
+connection
+  .authenticate()
+  .then(() => {
+    console.log('Connection has been established successfully.');
+  })
+  .catch(err => {
+    console.error('Unable to connect to the database:', err);
   });
-});
 
 
-
-// ******* MODELS ********
-
+// ******* Postgres MODELS ********
 var User = connection.define('user', {
 	first: Sequelize.STRING,
 	last: Sequelize.STRING,
@@ -76,30 +63,38 @@ var Vendor = connection.define('vendor', {
 	imgURL: Sequelize.STRING
 });
 
-//connection.sync();
-connection
-  .authenticate()
-  .then(() => {
-    console.log('Connection has been established successfully.');
-  })
-  .catch(err => {
-    console.error('Unable to connect to the database:', err);
+// Initialize passport for login/authentication
+passport.use(new LocalStrategy({
+    usernameField: "email"
+  },
+  function(username, password, done) {
+    User.findOne({ username: username }, function (err, user) {
+      if (err) { return done(err); }
+      if (!user) {
+        return done(null, false, { message: "Incorrect username." });
+      }
+      if (!user.validPassword(password)) {
+        return done(null, false, { message: "Incorrect password." });
+      }
+      return done(null, user);
+    });
+  }
+));
+
+passport.serializeUser(function(user, done) {
+  done(null, user.id);
+});
+
+passport.deserializeUser(function(id, done) {
+  User.findById(id, function(err, user) {
+    done(err, user);
   });
+});
 
-// ******* TABLE DATA *******
+// Initialize bcrypt hash/salt
 
-// FIGURE OUT HOW TO REMOVE THIS SO WE DON'T CREATE A NEW USER EVERY TIME THE APP STARTS
-connection.sync();
-// .then(function () {
-// 	User.create({
-// 		first: 'John',
-// 		last: 'Bello',
-// 		email: 'a@b.com',
-// 		pointsBalance: 697,
-// 		tapNum: '1234567891012131',
-// 		password: '123'
-// 	});
-// });
+
+
 
 
 // ******* ROUTES ********
@@ -119,11 +114,7 @@ app.get("/signup", function(req, res) {
 	res.render("signup");
 })
 
-app.get("/home", function(req, res) {
-	res.render("home", {user: user, vendors:vendors});
-});
-
-app.post("/home", function(req, res) {
+app.post("/signup", function(req, res) {
 	var first = req.body.first;
 	var last = req.body.last;
 	var email = req.body.email;
@@ -131,13 +122,19 @@ app.post("/home", function(req, res) {
 	var password = req.body.password;
 	var newUser = {first: first, last: last, email: email, tapNum: tapNum, pointsBalance: 0, password: password};
 
+	// Add new user to database from form info & redirect to login
 	User.create(newUser, function(err, addedUser) {
 		if (err) {
 			console.log(err);
 		} else {
-			res.redirect("/home");
+			res.redirect("/");
 		}
 	});
+	res.redirect("/");
+});
+
+app.get("/home", function(req, res) {
+	res.render("home", {user: user, vendors:vendors});
 });
 
 app.get("/myrewards", function(req, res) {
@@ -156,6 +153,23 @@ app.get("/*", function(req, res) {
 app.listen(3000, function() {
 	console.log("App is running on Port 3000");
 });
+
+
+
+// ******* TABLE DATA *******
+
+// FIGURE OUT HOW TO REMOVE THIS SO WE DON'T CREATE A NEW USER EVERY TIME THE APP STARTS
+// connection.sync();
+// .then(function () {
+// 	User.create({
+// 		first: 'John',
+// 		last: 'Bello',
+// 		email: 'a@b.com',
+// 		pointsBalance: 697,
+// 		tapNum: '1234567891012131',
+// 		password: '123'
+// 	});
+// });
 
 // ******* SEED DATA ********
 
