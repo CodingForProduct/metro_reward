@@ -25,10 +25,10 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // Connect to postgres db via sequelize
-var connection = new Sequelize(process.env.DB_NAME, process.env.PG_USER, process.env.PG_PASS, {
-	host: process.env.PG_HOST,
+var connection = new Sequelize(process.env.PGDATABASE, process.env.PGUSER, process.env.PGPASSWORD, {
+	host: process.env.PGHOST,
 	dialect: 'postgres',
-	port: process.env.PG_PORT,
+	port: process.env.PGPORT,
 	pool: {
 	 max: 5,
 	 min: 0,
