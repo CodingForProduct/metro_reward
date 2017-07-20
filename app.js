@@ -1,29 +1,34 @@
-// Include node modules
+// Require node modules
 var express = require("express");
 var app = express();
-var bodyParser = require("body-parser");
-var cookieParser = require("cookie-parser");
-var expressValidator = require('express-validator');
-var request = require("request");
 var Sequelize = require("sequelize");
+var cookieParser = require("cookie-parser");
+var bodyParser = require("body-parser");
+var expressValidator = require('express-validator');
 var flash = require("connect-flash");
+var session = require("express-session");
+var SequelizeStore = require('connect-session-sequelize')(session.Store);
+var sessionStore = new SequelizeStore();
 var passport = require("passport");
 var LocalStrategy = require("passport-local").Strategy;
 var bcrypt = require("bcrypt");
 var saltRounds = 10;
 
 // Use node modules
+require('dotenv').config()
 app.set("view engine", "ejs");
 app.use(express.static("public"));
-require('dotenv').config()
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(expressValidator());
-// app.use(flash());
-// app.use(session({
-//   secret: process.env.SESSION_SECRET,
-//   store: store
-// }));
+app.use(flash());
+app.use(session({
+  secret: process.env.SESSION_SECRET,
+  resave: false,
+  saveUninitialized: false,
+	store: sessionStore,
+  // cookie: { secure: true } // For https secure must be true
+}))
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -68,6 +73,16 @@ var Vendor = connection.define('vendor', {
 });
 
 // Initialize passport for login/authentication
+
+function authenticationMiddleware() {
+	return (req, res, next) => {
+		console.log(`req.session.passport.user: ${JSON.stringify(req.session.passport)}`);
+
+	    if (req.isAuthenticated()) return next();
+	    res.redirect('/')
+	}
+}
+
 passport.use(new LocalStrategy({
     usernameField: "email"
   },
@@ -85,6 +100,10 @@ passport.use(new LocalStrategy({
   }
 ));
 
+// bcrypt.compare(password, hash, function(err, res) {
+// 	// res == true
+// });
+
 passport.serializeUser(function(user, done) {
   done(null, user.id);
 });
@@ -94,12 +113,6 @@ passport.deserializeUser(function(id, done) {
     done(err, user);
   });
 });
-
-// Initialize bcrypt hash/salt
-
-
-
-
 
 // ******* ROUTES ********
 
@@ -149,11 +162,11 @@ app.post("/signup", function(req, res) {
 	}
 });
 
-app.get("/home", function(req, res) {
+app.get("/home", authenticationMiddleware(), function(req, res) {
 	res.render("home", {user: user, vendors:vendors});
 });
 
-app.get("/myrewards", function(req, res) {
+app.get("/myrewards", authenticationMiddleware(), function(req, res) {
 	res.render("myrewards", {user: user, vendors:vendors});
 })
 
