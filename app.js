@@ -3,12 +3,14 @@ var express = require("express");
 var app = express();
 var bodyParser = require("body-parser");
 var cookieParser = require("cookie-parser");
+var expressValidator = require('express-validator');
 var request = require("request");
 var Sequelize = require("sequelize");
 var flash = require("connect-flash");
 var passport = require("passport");
 var LocalStrategy = require("passport-local").Strategy;
 var bcrypt = require("bcrypt");
+var saltRounds = 10;
 
 // Use node modules
 app.set("view engine", "ejs");
@@ -16,6 +18,7 @@ app.use(express.static("public"));
 require('dotenv').config()
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({extended: true}));
+app.use(expressValidator());
 // app.use(flash());
 // app.use(session({
 //   secret: process.env.SESSION_SECRET,
@@ -116,22 +119,34 @@ app.get("/signup", function(req, res) {
 })
 
 app.post("/signup", function(req, res) {
+	// Get 'newUser' details from form inputs
 	var first = req.body.first;
 	var last = req.body.last;
 	var email = req.body.email;
 	var tapNum = req.body.tapNum;
 	var password = req.body.password;
-	var newUser = {first: first, last: last, email: email, tapNum: tapNum, pointsBalance: 0, password: password};
 
-	// Add new user to database from form info & redirect to login
-	User.create(newUser, function(err, addedUser) {
-		if (err) {
-			console.log(err);
-		} else {
-			res.redirect("/");
-		}
-	});
-	res.redirect("/");
+	// Validate form inputs for clean data & generate errors if unclean
+	req.checkBody("email", "Invalid email address. Please try again.").isEmail();
+	req.checkBody("email", "Email address must be between 4-100 characters long, please try again.").len(4, 100);
+	req.checkBody("tapNum", "TAP card number must be 16 digits long, please try again.").len(16, 16);
+	req.checkBody("password", "Password must be between 6-30 characters long.").len(6, 30);
+	req.checkBody("passwordConfirm", "Password must be between 6-30 characters long.").len(6, 30);
+	req.checkBody("passwordConfirm", "Passwords do not match, please try again.").equals(req.body.password);
+	var errors = req.validationErrors();
+
+	// Hash password & create new user then redirect to login screen
+	if (!errors) {
+		bcrypt.hash(password, saltRounds, function(err, hash) {
+			var newUser = {first: first, last: last, email: email, tapNum: tapNum, pointsBalance: 0, password: hash};
+			User.create(newUser);
+		});
+		res.redirect("/");
+	} else {
+		console.log(errors);
+		res.redirect("/signup");
+		// !!! PRINT ERRORS FOR USER
+	}
 });
 
 app.get("/home", function(req, res) {
