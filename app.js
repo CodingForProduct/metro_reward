@@ -7,8 +7,15 @@ var bodyParser = require("body-parser");
 var expressValidator = require('express-validator');
 var flash = require("connect-flash");
 var session = require("express-session");
-var SequelizeStore = require('connect-session-sequelize')(session.Store);
-var sessionStore = new SequelizeStore();
+var sessionOptions = {
+  secret: 'process.env.SESSION_SECRET',
+  resave: false,
+  saveUninitialized: false,
+	// cookie: { secure: true }, // For https secure must be true
+	// store: sessionStore,
+}
+// var SequelizeStore = require('connect-session-sequelize')(session.Store);
+// var sessionStore = new SequelizeStore();
 var passport = require("passport");
 var LocalStrategy = require("passport-local").Strategy;
 var bcrypt = require("bcrypt");
@@ -22,15 +29,14 @@ app.use(cookieParser());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(expressValidator());
 app.use(flash());
-app.use(session({
-  secret: process.env.SESSION_SECRET,
-  resave: false,
-  saveUninitialized: false,
-	store: sessionStore,
-  // cookie: { secure: true } // For https secure must be true
-}))
+app.use(session(sessionOptions));
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(function(req, res, next) {
+	res.locals.errors = null;
+	res.locals.user = req.user || null;
+  next();
+});
 
 // Connect to postgres db via sequelize
 var connection = new Sequelize(process.env.PGDATABASE, process.env.PGUSER, process.env.PGPASSWORD, {
@@ -74,13 +80,17 @@ var Vendor = connection.define('vendor', {
 
 // Initialize passport for login/authentication
 
-function authenticationMiddleware() {
-	return (req, res, next) => {
-		console.log(`req.session.passport.user: ${JSON.stringify(req.session.passport)}`);
-
-	    if (req.isAuthenticated()) return next();
-	    res.redirect('/')
-	}
+// function authenticationMiddleware() {
+// 	return (req, res, next) => {
+// 		console.log(`req.session.passport.user: ${JSON.stringify(req.session.passport)}`);
+//
+// 	    if (req.isAuthenticated()) return next();
+// 	    res.redirect('/')
+// 	}
+// }
+//
+function comparePassword(password, hash) {
+	return bcrypt.compareSync(password, hash);
 }
 
 passport.use(new LocalStrategy({
@@ -88,48 +98,58 @@ passport.use(new LocalStrategy({
   },
   function(username, password, done) {
     User.findOne({ username: username }, function (err, user) {
+			console.log(user);
       if (err) { return done(err); }
       if (!user) {
-        return done(null, false, { message: "Incorrect username." });
+        return done(null, false, { message: "Incorrect username or password." });
       }
-      if (!user.validPassword(password)) {
-        return done(null, false, { message: "Incorrect password." });
+			var passwordsMatch = comparePassword(password, user.password);
+      if (!passwordsMatch) {
+        return done(null, false, { message: "Incorrect username or password." });
       }
       return done(null, user);
     });
   }
 ));
 
-// bcrypt.compare(password, hash, function(err, res) {
-// 	// res == true
-// });
-
 passport.serializeUser(function(user, done) {
   done(null, user.id);
 });
 
 passport.deserializeUser(function(id, done) {
-  User.findById(id, function(err, user) {
-    done(err, user);
-  });
+	User.findById(id).then(function(user) {
+    if (user) {
+        done(null, user.get());
+    } else {
+        done(user.errors, null);
+    }
+	});
 });
+
+
 
 // ******* ROUTES ********
 
 // Root goes to sign-in page with sign-up button
 app.get("/", function(req, res) {
-	res.render("login");
+	res.render("login", { errors: [] });
 });
 
 app.post('/', passport.authenticate('local', {
 	successRedirect: '/home',
 	failureRedirect: '/',
-	failureFlash: true })
+	// failureFlash: true })
 );
+
+// display logout
+app.get('/logout', function(req, res) {
+  req.logout();
+  res.redirect('/')
+});
 
 app.get("/signup", function(req, res) {
 	res.render("signup");
-})
+});
 
 app.post("/signup", function(req, res) {
 	// Get 'newUser' details from form inputs
@@ -162,11 +182,19 @@ app.post("/signup", function(req, res) {
 	}
 });
 
-app.get("/home", authenticationMiddleware(), function(req, res) {
+// app.get("/home", authenticationMiddleware(), function(req, res) {
+// 	res.render("home", {user: user, vendors:vendors});
+// });
+//
+// app.get("/myrewards", authenticationMiddleware(), function(req, res) {
+// 	res.render("myrewards", {user: user, vendors:vendors});
+// })
+
+app.get("/home", function(req, res) {
 	res.render("home", {user: user, vendors:vendors});
 });
 
-app.get("/myrewards", authenticationMiddleware(), function(req, res) {
+app.get("/myrewards", function(req, res) {
 	res.render("myrewards", {user: user, vendors:vendors});
 })
 
@@ -185,19 +213,22 @@ app.listen(3000, function() {
 
 
 
-// ******* TABLE DATA *******
+// ******* SEED TABLE DATA *******
 
-// FIGURE OUT HOW TO REMOVE THIS SO WE DON'T CREATE A NEW USER EVERY TIME THE APP STARTS
-// connection.sync();
-// .then(function () {
-// 	User.create({
-// 		first: 'John',
-// 		last: 'Bello',
-// 		email: 'a@b.com',
-// 		pointsBalance: 697,
-// 		tapNum: '1234567891012131',
-// 		password: '123'
-// 	});
+// User.create({
+// 	first: 'John',
+// 	last: 'Bello',
+// 	email: 'a@b.com',
+// 	pointsBalance: 697,
+// 	tapNum: '1234567891012131',
+// 	password: '123456'
+// });
+
+// Vendor.create({
+// 	name: "Menchie's",
+// 	reward: "Free Small Cup",
+// 	pointsNeeded: 250,
+// 	imgURL: "https://works-progress.com/wp-content/uploads/2015/12/menchies.png"
 // });
 
 // ******* SEED DATA ********
