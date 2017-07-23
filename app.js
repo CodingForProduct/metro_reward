@@ -89,20 +89,18 @@ var Vendor = connection.define('vendor', {
 // 	}
 // }
 //
+
 function comparePassword(password, hash) {
 	return bcrypt.compareSync(password, hash);
 }
 
-passport.use(new LocalStrategy({
-    usernameField: "email"
-  },
-  function(username, password, done) {
-    User.findOne({ username: username }, function (err, user) {
-			console.log(user);
+passport.use(new LocalStrategy(function(username, password, done) {
+    User.findOne({where: { email: username }}, function (err, user) {
       if (err) { return done(err); }
       if (!user) {
         return done(null, false, { message: "Incorrect username or password." });
       }
+
 			var passwordsMatch = comparePassword(password, user.password);
       if (!passwordsMatch) {
         return done(null, false, { message: "Incorrect username or password." });
@@ -135,11 +133,11 @@ app.get("/", function(req, res) {
 	res.render("login", { errors: [] });
 });
 
-app.post('/', passport.authenticate('local', {
-	successRedirect: '/home',
-	failureRedirect: '/',
-	// failureFlash: true })
-);
+app.post('/', passport.authenticate('local'), function(req, res) {
+	console.log(req.body.username);
+	console.log(req.body.password);
+	res.redirect('/home' + req.user.username);
+});
 
 // display logout
 app.get('/logout', function(req, res) {
@@ -232,41 +230,41 @@ app.listen(3000, function() {
 // });
 
 // ******* SEED DATA ********
-
-var user = [
-	{
-		first: "John",
-		last: "Bello",
-		email: "a@b.com",
-		pointsBalance: 697,
-		tapNum: 1234567891012131
-	},
-	{
-		first: "Erica",
-		last: "Cerulo",
-		email: "e@b.com",
-		pointsBalance: 253,
-		tapNum: 7649683429652100
-	}
-];
-
-var vendors = [
-	{
-		name: "Chipotle",
-		reward: "Free Burrito",
-		pointsNeeded: 150,
-		imgURL: "https://upload.wikimedia.org/wikipedia/en/thumb/3/3b/Chipotle_Mexican_Grill_logo.svg/1024px-Chipotle_Mexican_Grill_logo.svg.png"
-	},
-	{
-		name: "Dominos",
-		reward: "Free Breadsticks",
-		pointsNeeded: 100,
-		imgURL: "https://www.festisite.com/static/partylogo/img/logos/dominos_pizza.png"
-	},
-	{
-		name: "Menchie's",
-		reward: "Free Small Cup",
-		pointsNeeded: 250,
-		imgURL: "https://works-progress.com/wp-content/uploads/2015/12/menchies.png"
-	}
-];
+//
+// var user = [
+// 	{
+// 		first: "John",
+// 		last: "Bello",
+// 		email: "a@b.com",
+// 		pointsBalance: 697,
+// 		tapNum: 1234567891012131
+// 	},
+// 	{
+// 		first: "Erica",
+// 		last: "Cerulo",
+// 		email: "e@b.com",
+// 		pointsBalance: 253,
+// 		tapNum: 7649683429652100
+// 	}
+// ];
+//
+// var vendors = [
+// 	{
+// 		name: "Chipotle",
+// 		reward: "Free Burrito",
+// 		pointsNeeded: 150,
+// 		imgURL: "https://upload.wikimedia.org/wikipedia/en/thumb/3/3b/Chipotle_Mexican_Grill_logo.svg/1024px-Chipotle_Mexican_Grill_logo.svg.png"
+// 	},
+// 	{
+// 		name: "Dominos",
+// 		reward: "Free Breadsticks",
+// 		pointsNeeded: 100,
+// 		imgURL: "https://www.festisite.com/static/partylogo/img/logos/dominos_pizza.png"
+// 	},
+// 	{
+// 		name: "Menchie's",
+// 		reward: "Free Small Cup",
+// 		pointsNeeded: 250,
+// 		imgURL: "https://works-progress.com/wp-content/uploads/2015/12/menchies.png"
+// 	}
+// ];
