@@ -89,26 +89,44 @@ var Vendor = connection.define('vendor', {
 // 	}
 // }
 //
-
-function comparePassword(password, hash) {
-	return bcrypt.compareSync(password, hash);
-}
+//
+// function comparePassword(password, hash) {
+// 	return bcrypt.compareSync(password, hash);
+// }
 
 passport.use(new LocalStrategy(function(username, password, done) {
-    User.findOne({where: { email: username }}, function (err, user) {
-      if (err) { return done(err); }
-      if (!user) {
-        return done(null, false, { message: "Incorrect username or password." });
+    User.findOne({where: { email: username }}).then(function (user) {
+      if (user == null) {
+        return done(null, false, { message: 'Incorrect credentials.' })
       }
 
-			var passwordsMatch = comparePassword(password, user.password);
-      if (!passwordsMatch) {
-        return done(null, false, { message: "Incorrect username or password." });
-      }
-      return done(null, user);
-    });
-  }
-));
+			var hashedPassword = bcrypt.hashSync(password, hash)
+
+			      if (user.password === hash) {
+			        return done(null, user)
+			      }
+
+			      return done(null, false, { message: 'Incorrect credentials.' })
+			    })
+			  }
+			));
+
+
+
+// 			, function (err, user) {
+//       if (err) { return done(err); }
+//       if (!user) {
+//         return done(null, false, { message: "Incorrect username or password." });
+//       }
+//
+// 			var passwordsMatch = comparePassword(password, user.password);
+//       if (!passwordsMatch) {
+//         return done(null, false, { message: "Incorrect username or password." });
+//       }
+//       return done(null, user);
+//     });
+//   }
+// ));
 
 passport.serializeUser(function(user, done) {
   done(null, user.id);
