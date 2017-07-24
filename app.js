@@ -94,19 +94,13 @@ app.post("/signup", function(req, res) {
 
 app.get("/home", isLoggedIn, function(req, res) {
 	res.render("home", {user: user, vendors:vendors});
+  // Need to update these data sources
 });
 
 app.get("/myrewards", isLoggedIn, function(req, res) {
 	res.render("myrewards", {user: user, vendors:vendors});
+  // Need to update these data sources
 })
-
-// app.get("/home", isLoggedIn, function(req, res) {
-// 	res.render("home");
-// });
-//
-// app.get("/myrewards", isLoggedIn, function(req, res) {
-// 	res.render("myrewards");
-// })
 
 app.get("/earnpoints", isLoggedIn, function(req, res) {
 	res.render("earnpoints");
@@ -135,15 +129,6 @@ app.listen(3000, function() {
 
 
 // ******* SEED TABLE DATA *******
-
-// User.create({
-// 	first: 'John',
-// 	last: 'Bello',
-// 	email: 'a@b.com',
-// 	pointsBalance: 697,
-// 	tapNum: '1234567891012131',
-// 	password: '123456'
-// });
 
 // Vendor.create({
 // 	name: "Menchie's",
