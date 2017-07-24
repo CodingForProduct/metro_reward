@@ -108,8 +108,12 @@ app.get("/myrewards", isLoggedIn, function(req, res) {
 // 	res.render("myrewards");
 // })
 
-app.get("/earnpoints", function(req, res) {
+app.get("/earnpoints", isLoggedIn, function(req, res) {
 	res.render("earnpoints");
+})
+
+app.get("/learnmore", function(req, res) {
+	res.render("learnmore");
 })
 
 app.get("/*", function(req, res) {
