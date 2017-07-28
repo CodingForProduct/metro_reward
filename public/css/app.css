@@ -216,7 +216,7 @@ input {
   box-shadow: 0 0 1em 0.25em rgba(0,0,0,0.2);
   text-shadow: 0px 4px 3px rgba(0,0,0,0.4), 0px 8px 13px rgba(0,0,0,0.1), 0px 18px 23px rgba(0,0,0,0.1);
   border-radius: 10px;
-  padding: 12px 34px;
+  padding: 7px 34px;
   letter-spacing: 1.3px;
   max-width: 300px;
 }

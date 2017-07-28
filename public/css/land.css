@@ -12,9 +12,13 @@ body {
 .jumbotron {
   margin-right: 0;
   margin-left: 0;
-  padding-top: 25px;
-  padding-bottom: 25px;
+  padding-top: 10px;
+  padding-bottom: 10px;
   background-color: rgba(29, 129, 120, 0.67);
+}
+
+.jumbotron p {
+	margin-right: 22%;
 }
 
 #content {
@@ -22,6 +26,17 @@ body {
   text-transform: none;
 	padding-top: 12%;
 	text-shadow: 0px 4px 3px rgba(0,0,0,0.4), 0px 8px 13px rgba(0,0,0,0.1), 0px 18px 23px rgba(0,0,0,0.1);
+}
+
+#learn-more-content {
+	text-align: center;
+  text-transform: none;
+	padding-top: 4%;
+	text-shadow: 0px 4px 3px rgba(0,0,0,0.4), 0px 8px 13px rgba(0,0,0,0.1), 0px 18px 23px rgba(0,0,0,0.1);
+}
+
+#learn-more-content .jumbotron {
+	background-color: rgba(29, 129, 120, 0.85);
 }
 
 #metro-logo {
@@ -36,6 +51,34 @@ h1 {
 	font-size: 5em;
   display: inline;
 }
+
+#learn-more-title {
+	font-size: 3em;
+	padding-bottom: 2%;
+	text-align: center;
+}
+
+#learn-more-button {
+	text-align: center;
+}
+
+.how-to-header {
+  margin-top: 0;
+}
+
+.how-to-row {
+  margin-bottom: 2%;
+	text-align: left;
+}
+
+.how-to-check {
+  float: right;
+}
+
+.how-to-descrip {
+  font-size: 0.7em;
+}
+
 
 h2 {
   text-transform: lowercase;

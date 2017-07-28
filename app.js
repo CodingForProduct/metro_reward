@@ -1,64 +1,141 @@
-// Include node modules
+// Require node modules
 var express = require("express");
 var app = express();
-var bodyParser = require("body-parser");
-var request = require("request");
 var Sequelize = require("sequelize");
-
-var connection = new Sequelize('metrodb', 'metroadmin', 'beer', {
-	host: 'localhost',
-	dialect: 'postgres',
-	port: 5299,
-	pool: {
-	 max: 5,
-	 min: 0,
-	 idle: 10000
- }
-});
-
-// ******* MODELS ********
-
-var User = connection.define('user', {
-	first: Sequelize.STRING,
-	last: Sequelize.STRING,
-	email: Sequelize.STRING,
-	pointsBalance: Sequelize.INTEGER,
-	tapNum: Sequelize.STRING
-});
-
-var Vendor = connection.define('vendor', {
-	name: Sequelize.STRING,
-	reward: Sequelize.STRING,
-	pointsNeeded: Sequelize.INTEGER,
-	imgURL: Sequelize.STRING
-});
-
-//connection.sync();
-connection
-  .authenticate()
-  .then(() => {
-    console.log('Connection has been established successfully.');
-  })
-  .catch(err => {
-    console.error('Unable to connect to the database:', err);
-  });
+var passport = require("passport");
+var bodyParser = require("body-parser");
+var cookieParser = require("cookie-parser");
+var expressValidator = require('express-validator');
+var flash = require("connect-flash");
+var session = require("express-session");
+var passportLocalSequelize = require("passport-local-sequelize");
+var User = require("./models/user");
+// var SequelizeStore = require('connect-session-sequelize')(session.Store);
+// var sessionStore = new SequelizeStore();
 
 // Use node modules
+require('dotenv').config()
 app.set("view engine", "ejs");
 app.use(express.static("public"));
+app.use(cookieParser());
 app.use(bodyParser.urlencoded({extended: true}));
+app.use(expressValidator());
+app.use(flash());
+app.use(require("express-session")({
+  secret: 'process.env.SESSION_SECRET',
+  // cookie: { secure: true }, // For https secure must be true
+	// store: sessionStore,
+  resave: false,
+  saveUninitialized: false
+}));
+app.use(passport.initialize());
+app.use(passport.session());
+// app.use(function(req, res, next) {
+// 	res.locals.errors = null;
+// 	res.locals.user = req.user || null;
+//   next();
+// });
 
-// ******* TABLE DATA *******
+passport.use(User.createStrategy());
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
 
-connection.sync().then(function () {
-	User.create({
-		first: 'John',
-		last: 'Bello',
-		email: 'a@b.com',
-		pointsBalance: 697,
-		tapNum: '1234567891012131'
-	});
+// ******* ROUTES ********
+
+app.get("/", function(req, res) {
+  res.redirect("/login");
 });
+
+app.get("/login", function(req, res) {
+	res.render("login");
+});
+
+app.post('/login', passport.authenticate("local", {
+    successRedirect: "/home",
+    failureRedirect: "/"
+  }), function(req, res, next) {});
+
+app.get('/logout', function(req, res) {
+  req.logout();
+  res.redirect('/')
+});
+
+app.get("/signup", function(req, res) {
+	res.render("signup");
+});
+
+app.post("/signup", function(req, res) {
+	// Validate form inputs for clean data & generate errors if unclean
+	req.checkBody("username", "Invalid email address. Please try again.").isEmail();
+	req.checkBody("username", "Email address must be between 4-100 characters long, please try again.").len(4, 100);
+	req.checkBody("tapNum", "TAP card number must be 16 digits long, please try again.").len(16, 16);
+	req.checkBody("password", "Password must be between 6-30 characters long.").len(6, 30);
+	req.checkBody("passwordConfirm", "Password must be between 6-30 characters long.").len(6, 30);
+	req.checkBody("passwordConfirm", "Passwords do not match, please try again.").equals(req.body.password);
+
+  // Get 'newUser' details from form inputs
+	var first = req.body.first;
+	var last = req.body.last;
+	var username = req.body.username;
+	var tapNum = req.body.tapNum;
+  var newUser = {first: first, last: last, username: username, tapNum: tapNum, pointsBalance: 0};
+
+  // Create new user in database
+  User.register(new User(newUser), req.body.password, function(err, user) {
+    if (err) {
+      console.log(err);
+      return res.render("/signup");
+    }
+    passport.authenticate("local")(req, res, function() {
+      res.redirect("/home");
+    });
+  })
+})
+
+app.get("/home", isLoggedIn, function(req, res) {
+	res.render("home", {user: user, vendors:vendors});
+  // Need to update these data sources
+});
+
+app.get("/myrewards", isLoggedIn, function(req, res) {
+	res.render("myrewards", {user: user, vendors:vendors});
+  // Need to update these data sources
+})
+
+app.get("/earnpoints", isLoggedIn, function(req, res) {
+	res.render("earnpoints");
+})
+
+app.get("/learnmore", function(req, res) {
+	res.render("learnmore");
+})
+
+app.get("/*", function(req, res) {
+  res.render("404");
+});
+
+function isLoggedIn(req, res, next) {
+  if(req.isAuthenticated()) {
+    return next();
+  }
+  res.redirect("/login");
+}
+
+// Run app on localhost:3000
+app.listen(3000, function() {
+	console.log("App is running on Port 3000");
+});
+
+
+
+// ******* SEED TABLE DATA *******
+
+// Vendor.create({
+// 	name: "Menchie's",
+// 	reward: "Free Small Cup",
+// 	pointsNeeded: 250,
+// 	imgURL: "https://works-progress.com/wp-content/uploads/2015/12/menchies.png"
+// });
 
 // ******* SEED DATA ********
 
@@ -99,47 +176,3 @@ var vendors = [
 		imgURL: "https://works-progress.com/wp-content/uploads/2015/12/menchies.png"
 	}
 ];
-
-
-// ******* ROUTES ********
-
-// Root goes to sign-in page with sign-up button
-app.get("/", function(req, res) {
-	res.render("landing");
-});
-
-app.get("/signup", function(req, res) {
-	res.render("signup");
-})
-
-app.get("/home", function(req, res) {
-	res.render("home", {user: user, vendors:vendors});
-});
-
-app.post("/myrewards", function(req, res) {
-	var first = req.body.first;
-	var last = req.body.last;
-	var email = req.body.email;
-	var tapNum = req.body.tapNum;
-	var newUser = {first: first, last: last, email: email, tapNum: tapNum, pointsBalance: 0};
-
-	user.push(newUser);
-	res.redirect("/myrewards");
-})
-
-app.get("/myrewards", function(req, res) {
-	res.render("myrewards", {user: user, vendors:vendors});
-})
-
-app.get("/earnpoints", function(req, res) {
-	res.render("earnpoints");
-})
-
-app.get("/*", function(req, res) {
-  res.render("404");
-});
-
-// Run app on localhost:3000
-app.listen(3000, function() {
-	console.log("App is running on Port 3000");
-});

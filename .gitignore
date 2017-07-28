@@ -11,3 +11,6 @@ Thumbs.db
 ######################
 image-source/*
 node_modules
+
+* Secret Sauce #
+.env

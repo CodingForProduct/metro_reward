@@ -57,10 +57,23 @@ Reward for Metro rides at affiliate businesses
 
 - **Language:** JavaScript
 - **Frameworks:** Node.js / Express / Boostrap.js
-- **Database:** MongoDB / Postgres
+- **Package Managers:** Npm (Node Package Manager), Yarn
+- **Database:** PostgreSQL
 
 ## Team Members
 
 - [badickens](https://github.com/badickens)
 - [kammitama5](https://github.com/kammitama5)
 - [niamurrell](https://github.com/niamurrell)
+
+## Live Link
+
+- **Insert Live Link**
+
+## Installation 
+
+Requirements : Node, Postgres, Yarn
+
+## Bug Report/ Fixes
+
+- To file or report a bug, please [open an issue](https://github.com/CodingForProduct/metro_reward/issues/new) or make a pull request.
