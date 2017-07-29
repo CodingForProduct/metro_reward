@@ -216,6 +216,12 @@ input {
   font-weight: bold;
   font-size: 1.3em;
 }
+.validEntry {
+  color: #15585F;
+  font-style: oblique;
+  font-weight: bold;
+  font-size: 1.3em;
+}
 
 /* -------------------- BUTTON STYLES ---------------------*/
 

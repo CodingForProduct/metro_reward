@@ -24,10 +24,10 @@ function validate() {
   $("#firstname").on("blur", function() {
     var value = $(this).val();
     if (value.length < 1 ) {
-        $("#firstError").text("Please enter your first name!").css("color", "#B95314");
+        $("#firstError").text("Please enter your first name!").removeClass("validEntry");
         firstValid = false;
     } else {
-        $("#firstError").text("OK!").css("color", "#15585F");
+        $("#firstError").text("OK!").addClass("validEntry");
         firstValid = true;
     }
   })
@@ -36,10 +36,10 @@ function validate() {
   $("#lastname").on("blur", function() {
     var value = $(this).val();
     if (value.length < 1 ) {
-        $("#lastError").text("Please enter your last name!").css("color", "#B95314");
+        $("#lastError").text("Please enter your last name!").removeClass("validEntry");
         lastValid = false;
     } else {
-        $("#lastError").text("OK!").css("color", "#15585F");
+        $("#lastError").text("OK!").addClass("validEntry");
         lastValid = true;
     }
   })
@@ -48,64 +48,43 @@ function validate() {
   $("#email").on("blur", function() {
     var email = $(this).val();
     if (validateEmail(email) == false) {
-      $("#emailError").text("Must be a valid email address!").css("color", "#B95314");
+      $("#emailError").text("Must be a valid email address!").removeClass("validEntry");
       emailValid = false;
     } else {
-      $("#emailError").text("OK!").css("color", "#15585F");
+      $("#emailError").text("OK!").addClass("validEntry");
       emailValid = true;
     }
   })
 
-
-
-
-
-
-  // VALIDATE EMAIL AS UNIQUE
-  $("#email").on("blur", function() {
-    var email = $(this).val();
-    if (queryEmail(email) == false) {
-      $("#emailError").text("Email must be unique!").css("color", "#B95314");
-      emailValid = false;
-    } else {
-      $("#emailError").text("OK!").css("color", "#15585F");
-      emailValid = true;
-    }
-  })
-
-
-
-  // function queryEmail(address) {
-  //   User.findByUsername(user.get(options.usernameField), function (err, existingUser) {
-  //       if (err) { console.log(err); }
-  //
-  //       if (existingUser) {
-  //         $("#emailError").text("Email must be unique!").css("color", "#B95314");
-  //         emailValid = false;
-  //       } else {
-  //         $("#emailError").text("OK!").css("color", "#15585F");
-  //         emailValid = true;
-  //       }
+  // VALIDATE EMAIL AS UNIQUE - REQUIRES AJAX API ENDPOINT TO BE ADDED LATER
+  // $("#email").on("blur", function() {
+  //   var email = $(this).val();
+  //   if (queryEmail(email) == true) {
+  //     $("#emailError").text("Email must be unique!").removeClass("validEntry");
+  //     emailValid = false;
+  //   } else {
+  //     $("#emailError").text("OK!").addClass("validEntry");
+  //     emailValid = true;
+  //   }
+  // })
+  // function queryEmail(email) {
+  //   User.findOne({where: {username: email}}, function (err, existingUser) {
+  //     if (err) {
+  //       console.log(err);
+  //     } else if (existingUser) {
+  //       return true;
+  //     } return false;
+  //   });
   // }
-
-
-
-
-
-
-
-
-
-
 
   // VALIDATE TAP NUMBER AS 16 CHARACTERS
   $("#tap_id").on("blur", function() {
     var value = $(this).val();
     if (value.length != 16 ) {
-        $("#tapError").text("Must have 16 characters!").css("color", "#B95314");
+        $("#tapError").text("Must have 16 characters!").removeClass("validEntry");
         tapValid = false;
     } else {
-        $("#tapError").text("OK!").css("color", "#15585F");
+        $("#tapError").text("OK!").addClass("validEntry");
         tapValid = true;
     }
   })
@@ -114,10 +93,10 @@ function validate() {
   $("#password").on("blur", function() {
     var value = $(this).val();
     if (value.length < 6 || value.length > 30 ) {
-        $("#pwError").text("Password must be between 6-30 characters!").css("color", "#B95314");
+        $("#pwError").text("Password must be between 6-30 characters!").removeClass("validEntry");
         pwValid = false;
     } else {
-        $("#pwError").text("OK!").css("color", "#15585F");
+        $("#pwError").text("OK!").addClass("validEntry");
         pwValid = true;
     }
   })
@@ -127,11 +106,11 @@ function validate() {
     var pw1 = $("#password").val();
     var pw2 = $(this).val();
     if (pw1 != pw2) {
-        $("#pwMatchError").text("Passwords must match!").css("color", "#B95314");
+        $("#pwMatchError").text("Passwords must match!").removeClass("validEntry");
         pwMatchValid = false;
     }
     else {
-        $("#pwMatchError").text("OK!").css("color", "#15585F");
+        $("#pwMatchError").text("OK!").addClass("validEntry");
         pwMatchValid = true;
     }
   })
