@@ -15,31 +15,31 @@
   <div class="col-md-12">
     <form role="form" action="/signup" method="post">
       <div class="form-group">
-        <label>First Name:</label>
+        <label for="first">First Name:</label><span class="invalidEntry pull-right" id="firstError"></span>
 		    <input class="form-control" type="text" id="firstname" name="first"/>
       </div>
       <div class="form-group">
-        <label>Last Name:</label>
+        <label for="last">Last Name:</label><span class="invalidEntry pull-right" id="lastError"></span>
 		    <input class="form-control" type="text" id="lastname" name="last"/>
       </div>
       <div class="form-group">
-        <label>Email:</label>
+        <label for="username">Email:</label><span class="invalidEntry pull-right" id="emailError"></span>
 		    <input class="form-control" type="email" id="email" name="username" placeholder="Your email address" />
       </div>
       <div class="form-group">
-        <label>TAP #:</label>
+        <label for="tapNum">TAP #:</label><span class="invalidEntry pull-right" id="tapError"></span>
         <input class="form-control" type="text" id="tap_id" name="tapNum" placeholder="AA xx xx xxxxx xxxxx" />
       </div>
       <div class="form-group">
-        <label>Password:</label>
+        <label for="password">Password:</label><span class="invalidEntry pull-right" id="pwError"></span>
 		    <input class="form-control" type="password" id="password" name="password" placeholder="Create a password" />
       </div>
       <div class="form-group">
-        <label>Confirm Password:</label>
+        <label for="passwordConfirm">Confirm Password:</label><span class="invalidEntry pull-right" id="pwMatchError"></span>
 		    <input class="form-control" type="password" id="passwordConfirm" name="passwordConfirm" placeholder="Re-enter Password" />
       </div>
       <div class="button">
-        <button type="submit" class="btn btn-red center-block">Submit</button>
+        <button type="submit" class="btn btn-red center-block" id="signupSubmit" disabled>Submit</button>
       </div>
     </form>
 
