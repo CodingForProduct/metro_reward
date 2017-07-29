@@ -33,12 +33,12 @@ connection
   	mysalt: Sequelize.STRING
   });
 
-  var Vendor = connection.define("vendor", {
-  	name: Sequelize.STRING,
-  	reward: Sequelize.STRING,
-  	pointsNeeded: Sequelize.INTEGER,
-  	imgURL: Sequelize.STRING
-  });
+	var Vendor = connection.define("vendor", {
+	  name: Sequelize.STRING,
+	  reward: Sequelize.STRING,
+	  pointsNeeded: Sequelize.INTEGER,
+	  imgURL: Sequelize.STRING
+	});
 
 // Activate passport-local-sequelize
 passportLocalSequelize.attachToUser(User, {
@@ -50,4 +50,4 @@ passportLocalSequelize.attachToUser(User, {
 // Create table in database if not exists
 connection.sync();
 
-module.exports = User;
+module.exports = User, Vendor;

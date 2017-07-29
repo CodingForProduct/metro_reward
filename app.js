@@ -30,15 +30,10 @@ app.use(require("express-session")({
 }));
 app.use(passport.initialize());
 app.use(passport.session());
-// app.use(function(req, res, next) {
-// 	res.locals.errors = null;
-// 	res.locals.user = req.user || null;
-//   next();
-// });
-
 passport.use(User.createStrategy());
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
+
 
 // ******* ROUTES ********
 
@@ -61,7 +56,7 @@ app.get('/logout', function(req, res) {
 });
 
 app.get("/signup", function(req, res) {
-	res.render("signup");
+	res.render("signup", {currentUser: req.user, vendors:vendors});
 });
 
 app.post("/signup", function(req, res) {
@@ -89,29 +84,27 @@ app.post("/signup", function(req, res) {
     passport.authenticate("local")(req, res, function() {
       res.redirect("/home");
     });
-  })
-})
+  });
+});
 
 app.get("/home", isLoggedIn, function(req, res) {
-	res.render("home", {user: user, vendors:vendors});
-  // Need to update these data sources
+	res.render("home", {currentUser: req.user, vendors:vendors});
 });
 
 app.get("/myrewards", isLoggedIn, function(req, res) {
-	res.render("myrewards", {user: user, vendors:vendors});
-  // Need to update these data sources
-})
+	res.render("myrewards", {currentUser: req.user, vendors:vendors});
+});
 
 app.get("/earnpoints", isLoggedIn, function(req, res) {
-	res.render("earnpoints");
-})
+	res.render("earnpoints", {currentUser: req.user, vendors:vendors});
+});
 
 app.get("/learnmore", function(req, res) {
 	res.render("learnmore");
-})
+});
 
 app.get("/*", function(req, res) {
-  res.render("404");
+  res.render("404", {currentUser: req.user, vendors:vendors});
 });
 
 function isLoggedIn(req, res, next) {
@@ -139,40 +132,53 @@ app.listen(3000, function() {
 
 // ******* SEED DATA ********
 
-var user = [
-	{
-		first: "John",
-		last: "Bello",
-		email: "a@b.com",
-		pointsBalance: 697,
-		tapNum: 1234567891012131
-	},
-	{
-		first: "Erica",
-		last: "Cerulo",
-		email: "e@b.com",
-		pointsBalance: 253,
-		tapNum: 7649683429652100
-	}
-];
-
 var vendors = [
-	{
-		name: "Chipotle",
-		reward: "Free Burrito",
-		pointsNeeded: 150,
-		imgURL: "https://upload.wikimedia.org/wikipedia/en/thumb/3/3b/Chipotle_Mexican_Grill_logo.svg/1024px-Chipotle_Mexican_Grill_logo.svg.png"
-	},
 	{
 		name: "Dominos",
 		reward: "Free Breadsticks",
 		pointsNeeded: 100,
 		imgURL: "https://www.festisite.com/static/partylogo/img/logos/dominos_pizza.png"
 	},
+  {
+		name: "Chipotle",
+		reward: "Free Burrito",
+		pointsNeeded: 150,
+		imgURL: "https://upload.wikimedia.org/wikipedia/en/thumb/3/3b/Chipotle_Mexican_Grill_logo.svg/1024px-Chipotle_Mexican_Grill_logo.svg.png"
+	},
+  {
+    name: "Pink's Hot Dogs",
+    reward: "Free Dog, Any Type",
+    pointsNeeded: 150,
+    imgURL: "http://www.pinkshotdogslv.com/rescon/uploads/2014/02/Pinks_logo_social.png"
+  },
+  {
+    name: "Amoeba Music",
+    reward: "1 Free Movie Poster",
+    pointsNeeded: 200,
+    imgURL: "https://pbs.twimg.com/profile_images/1884615902/Logo-Watermarked-Sq.jpg"
+  },
+  {
+    name: "Philippe's The Original",
+    reward: "One Sandwich",
+    pointsNeeded: 200,
+    imgURL: "http://4.bp.blogspot.com/-mzkXMnXKq5w/UKI6eO6ftCI/AAAAAAAAFcM/G59iu0s0_pE/s1600/philippes_logo.png"
+  },
+  {
+    name: "Menchie's",
+    reward: "Free Small Cup",
+    pointsNeeded: 250,
+    imgURL: "https://works-progress.com/wp-content/uploads/2015/12/menchies.png"
+  },
+  {
+    name: "Voodoo Donuts",
+    reward: "Free Donut",
+    pointsNeeded: 250,
+    imgURL: "https://vignette3.wikia.nocookie.net/donuts/images/5/5a/Voodoo_Doughnut_01.png"
+  },
 	{
-		name: "Menchie's",
-		reward: "Free Small Cup",
-		pointsNeeded: 250,
-		imgURL: "https://works-progress.com/wp-content/uploads/2015/12/menchies.png"
+		name: "Griffith Observatory",
+		reward: "Free Entrance Ticket",
+		pointsNeeded: 300,
+		imgURL: "http://griffithobservatory.org/slideshow/slide_show00.jpg"
 	}
 ];
