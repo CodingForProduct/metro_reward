@@ -66,9 +66,9 @@ Reward for Metro rides at affiliate businesses
 - [kammitama5](https://github.com/kammitama5)
 - [niamurrell](https://github.com/niamurrell)
 
-## Live Link
+## Presentation
 
-- **Insert Live Link**
+- [Presentation slides link](https://docs.google.com/presentation/d/1JhhG3qUIhZ-ChLBXBJIMQskLoaZYacZB_RmfUuFwtmE/edit?usp=sharing)
 
 ## Installation 
 
