@@ -22,10 +22,17 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
+        <% if (currentUser) { %>
         <a class="navbar-brand" href="/home">
           <img src="/img/metro-logo-400x400.png" width="40" height="40" class="d-inline-block align-bottom" alt="metro logo">
           <p> Rides For Rewards</p>
         </a>
+        <% } else { %>
+        <a class="navbar-brand" href="/">
+          <img src="/img/metro-logo-400x400.png" width="40" height="40" class="d-inline-block align-bottom" alt="metro logo">
+          <p> Rides For Rewards</p>
+        </a>
+        <% } %>
       </div>
 
       <!-- Collect the nav links, forms, and other content for toggling -->
@@ -33,16 +40,18 @@
         <ul class="nav navbar-nav navbar-right">
           <li><a href="#"><i class="fa fa-lg fa-twitter" aria-hidden="true"></i></a></li>
           <li><a href="#"><i class="fa fa-lg fa-facebook-official" aria-hidden="true"></i></a></li>
-          <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" id="dropdown">My Account  <i class="fa fa-user" aria-hidden="true"></i>  <span class="caret"></span></a>
-            <ul class="dropdown-menu">
-              <li><a href="/home">View My Points</a></li>
-              <li><a href="/myrewards">Get Rewards</a></li>
-              <li><a href="https://www.metro.net/riding/trip-planner/" target="_blank">Plan My Trip</a></li>
-              <li role="separator" class="divider"></li>
-              <li><a href="/logout">Log Out</a></li>
-            </ul>
-          </li>
+          <% if (currentUser) { %>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" id="dropdown">My Account  <i class="fa fa-user" aria-hidden="true"></i>  <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="/home">View My Points</a></li>
+                <li><a href="/myrewards">Get Rewards</a></li>
+                <li><a href="https://www.metro.net/riding/trip-planner/" target="_blank">Plan My Trip</a></li>
+                <li role="separator" class="divider"></li>
+                <li><a href="/logout">Log Out</a></li>
+              </ul>
+            </li>
+          <% } %>
         </ul>
       </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
