@@ -10,6 +10,7 @@ $(document).ready(function() {
       console.log("Hey");
       $(".pts-redeemed").html($(".points-needed p:first").text());
       $("#item-redeemed").html($(".vendor-reward p:first").text());
+      $("#item-company").html($("#points-company").text());
 
       redeemPoints = parseInt($(".points-needed p:first").text());
       $("#confirm-modal").modal('show');
