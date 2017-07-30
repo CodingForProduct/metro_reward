@@ -1,12 +1,9 @@
-var getBalance = function() {
-    var totalPoints = document.getElementsByClassName("circle");
-    var balance = totalPoints[0].innerHTML -
+function getBalance (points, redeem) {
+    var balance = points - redeem;
+    //alert(totalPoints);
     console.log(balance);
 
-    /*
-    connection.sync().then(function( {
-        Vendor.findById()
+    //currentUser.pointsBalance = balance;
 
-    });*/
-        return true;
-    };
+    return balance;
+}
