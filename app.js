@@ -21,6 +21,8 @@ app.set("view engine", "ejs");
 app.use(express.static("public"));
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({extended: true}));
+
+app.use(bodyParser.json());
 app.use(expressValidator());
 app.use(flash());
 app.use(require("express-session")({
@@ -40,7 +42,9 @@ passport.deserializeUser(User.deserializeUser());
 // ******* ROUTES ********
 
 app.get("/", function(req, res) {
+
   res.redirect("/login");
+
 });
 
 app.get("/login", function(req, res) {
@@ -90,12 +94,40 @@ app.post("/signup", function(req, res) {
 });
 
 app.get("/home", isLoggedIn, function(req, res) {
+  console.log(req.user.username);
 	res.render("home", {currentUser: req.user, vendors:vendors});
 });
 
 app.get("/myrewards", isLoggedIn, function(req, res) {
 	res.render("myrewards", {currentUser: req.user, vendors:vendors});
 });
+
+app.post("/myrewards", isLoggedIn, function(req, res) {
+  var pointsTotal = req.body.points;
+  console.log(pointsTotal);
+  User.update(
+    { pointsBalance: pointsTotal },
+    { where: { username: req.user.username }})
+    .then(() => {
+        //res.render("home", {currentUser: req.user, vendors:vendors});
+          //req.method = "get";
+          res.json({status: "Success", redirect: "/home"});
+        console.log("Connection has been established successfully.");
+    })
+    .catch(err => {
+        console.error("Unable to connect to the database:", err);
+    });
+  /*
+  User.find({ where: { username: req.user.username }}).then(function(pointsTotal){
+    { pointsBalance: pointsTotal,
+    }
+    console.log(req.user.pointsBalance);
+
+  });
+  */
+
+});
+
 
 app.get("/earnpoints", isLoggedIn, function(req, res) {
 	res.render("earnpoints", {currentUser: req.user, vendors:vendors});
@@ -108,6 +140,8 @@ app.get("/learnmore", function(req, res) {
 app.get("/*", function(req, res) {
   res.render("404", {currentUser: req.user, vendors:vendors});
 });
+
+
 
 function isLoggedIn(req, res, next) {
   if(req.isAuthenticated()) {
@@ -138,7 +172,7 @@ var vendors = [
 	{
 		name: "Dominos",
 		reward: "Free Breadsticks",
-		pointsNeeded: 100,
+		pointsNeeded: 1,
 		imgURL: "https://www.festisite.com/static/partylogo/img/logos/dominos_pizza.png"
 	},
   {
