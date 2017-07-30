@@ -15,9 +15,8 @@ var User = require("./models/user");
 
 // Use node modules
 if (NPM_CONFIG_PRODUCTION != true){
-  require('dot.env').config()
+  require('dotenv').config()
 }
-require('dotenv').config()
 app.set("view engine", "ejs");
 app.use(express.static("public"));
 app.use(cookieParser());
