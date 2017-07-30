@@ -100,7 +100,7 @@ app.get("/myrewards", isLoggedIn, function(req, res) {
 	res.render("myrewards", {currentUser: req.user, vendors:vendors});
 });
 
-app.put("/myrewards", isLoggedIn, function(req, res) {
+app.post("/myrewards", isLoggedIn, function(req, res) {
   var pointsTotal = req.body.points;
   console.log(pointsTotal);
   User.update(
@@ -108,6 +108,8 @@ app.put("/myrewards", isLoggedIn, function(req, res) {
     { where: { username: req.user.username }})
     .then(() => {
         //res.render("home", {currentUser: req.user, vendors:vendors});
+          //req.method = "get";
+          res.json({status: "Success", redirect: "/home"});
         console.log("Connection has been established successfully.");
     })
     .catch(err => {
@@ -121,7 +123,7 @@ app.put("/myrewards", isLoggedIn, function(req, res) {
 
   });
   */
-  res.render("home", {currentUser: req.user, vendors:vendors});
+
 });
 
 
