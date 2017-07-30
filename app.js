@@ -14,7 +14,7 @@ var User = require("./models/user");
 // var sessionStore = new SequelizeStore();
 
 // Use node modules
-if (NPM_CONFIG_PRODUCTION != "true"){
+if (process.env.NPM_CONFIG_PRODUCTION != "true"){
   require('dotenv').config()
 }
 app.set("view engine", "ejs");
