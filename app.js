@@ -172,7 +172,7 @@ var vendors = [
 	{
 		name: "Dominos",
 		reward: "Free Breadsticks",
-		pointsNeeded: 1,
+		pointsNeeded: 100,
 		imgURL: "https://www.festisite.com/static/partylogo/img/logos/dominos_pizza.png"
 	},
   {
