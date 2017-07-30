@@ -75,7 +75,7 @@ app.post("/signup", function(req, res) {
 	var last = req.body.last;
 	var username = req.body.username;
 	var tapNum = req.body.tapNum;
-  var newUser = {first: first, last: last, username: username, tapNum: tapNum, pointsBalance: 0};
+  var newUser = {first: first, last: last, username: username, tapNum: tapNum, pointsBalance: 472};
 
   // Create new user in database
   User.register(new User(newUser), req.body.password, function(err, user) {
