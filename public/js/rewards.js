@@ -31,7 +31,13 @@ $(document).ready(function() {
       // Placeholder in case we want to alter the rendered page
       // $("#result").html("item selected");
       totalPoints = getBalance(totalPoints, redeemPoints);
-      alert(totalPoints);
+      $.ajax({
+        url: '/myrewards',
+        method: 'PUT',
+        contentType: 'application/json',
+        data: JSON.stringify({ points: totalPoints })
+      });
+      //alert(totalPoints);
 
 
     }else{
