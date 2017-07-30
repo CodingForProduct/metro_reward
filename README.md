@@ -69,7 +69,7 @@ Reward for Metro rides at affiliate businesses
 
 ## Live Link
 
-[Deployed App](https://rocky-woodland-22781.herokuapp.com/login)
+[Deployed App]( https://rides-for-rewards.herokuapp.com/ )
 
 ## Presentation
 
