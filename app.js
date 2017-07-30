@@ -14,7 +14,9 @@ var User = require("./models/user");
 // var sessionStore = new SequelizeStore();
 
 // Use node modules
-require('dotenv').config()
+if (process.env.NODE_ENV != "production"){
+  require('dotenv').config()
+}
 app.set("view engine", "ejs");
 app.use(express.static("public"));
 app.use(cookieParser());
@@ -149,7 +151,7 @@ function isLoggedIn(req, res, next) {
 }
 
 // Run app on localhost:3000
-app.listen(3000, function() {
+app.listen(process.env.PORT || 3000, function() {
 	console.log("App is running on Port 3000");
 });
 

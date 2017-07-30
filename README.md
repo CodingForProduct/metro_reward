@@ -56,9 +56,10 @@ Reward for Metro rides at affiliate businesses
 ## Tech Stack
 
 - **Language:** JavaScript
-- **Frameworks:** Node.js / Express / Boostrap.js
+- **Frameworks:** Node.js v4.8.4 / Npm 2.15.11 / Boostrap.js
+- **Dependencies:** Express/Sequelize/Passport
 - **Package Managers:** Npm (Node Package Manager), Yarn
-- **Database:** PostgreSQL
+- **Database:** PostgreSQL 9.3.15
 
 ## Team Members
 
@@ -68,7 +69,11 @@ Reward for Metro rides at affiliate businesses
 
 ## Live Link
 
-- **Insert Live Link**
+[Deployed App](https://rocky-woodland-22781.herokuapp.com/login)
+
+## Presentation
+
+- [Presentation slides link](https://docs.google.com/presentation/d/1JhhG3qUIhZ-ChLBXBJIMQskLoaZYacZB_RmfUuFwtmE/edit?usp=sharing)
 
 ## Installation 
 
