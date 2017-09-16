@@ -1,3 +1,6 @@
+// LEFT OFF
+// Requires login twice for success
+
 // Require node modules
 var express = require("express");
 var app = express();
@@ -68,11 +71,6 @@ var SequelizeStore = require('connect-session-sequelize')(session.Store);
 var sessionStore = new SequelizeStore({
     db: connection
   });
-sessionStore.sync();
-
-// Create table in database if not exists
-connection.sync();
-
 
 
 // Use node modules
@@ -89,14 +87,6 @@ app.use(expressValidator());
 app.use(flash());
 
 
-// app.use(session({
-//   secret: 'process.env.SESSION_SECRET',
-//   // cookie: { secure: true }, // For https secure must be true
-//   // store: sessionStore,
-//   resave: false,
-//   saveUninitialized: false
-// }));
-
 app.use(session({
   secret: 'process.env.SESSION_SECRET',
   store: sessionStore,
@@ -105,6 +95,10 @@ app.use(session({
   resave: false,
   saveUninitialized: false
 }));
+
+// Create tables in database if not exists
+connection.sync();
+sessionStore.sync();
 
 
 app.use(passport.initialize());
