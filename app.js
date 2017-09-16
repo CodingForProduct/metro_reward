@@ -74,6 +74,7 @@ sessionStore.sync();
 connection.sync();
 
 
+
 // Use node modules
 if (process.env.NODE_ENV != "production"){
   require('dotenv').config()
@@ -86,36 +87,31 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 app.use(expressValidator());
 app.use(flash());
+
+
+// app.use(session({
+//   secret: 'process.env.SESSION_SECRET',
+//   // cookie: { secure: true }, // For https secure must be true
+//   // store: sessionStore,
+//   resave: false,
+//   saveUninitialized: false
+// }));
+
 app.use(session({
   secret: 'process.env.SESSION_SECRET',
   store: sessionStore,
-  cookie: { secure: true }, // For https secure must be true
+  cookie: { secure: false }, // For https secure must be true
   proxy: true, // if you do SSL outside of node. 
   resave: false,
   saveUninitialized: false
 }));
+
+
 app.use(passport.initialize());
 app.use(passport.session());
 passport.use(User.createStrategy());
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
-
-
-// Store user login sessions
-var SequelizeStore = require('connect-session-sequelize')(session.Store);
-var sessionStore = new SequelizeStore({
-    db: connection
-  });
-sessionStore.sync();
-
-app.use(session({
-  secret: 'process.env.SESSION_SECRET',
-  store: sessionStore,
-  cookie: { secure: true }, // For https secure must be true
-  proxy: true, // if you do SSL outside of node. 
-  resave: false,
-  saveUninitialized: false
-}));
 
 
 
