@@ -9,21 +9,24 @@ var expressValidator = require('express-validator');
 var flash = require("connect-flash");
 var session = require("express-session");
 var passportLocalSequelize = require("passport-local-sequelize");
-// var User = require("./models/user");
-// var SequelizeStore = require('connect-session-sequelize')(session.Store);
-// var sessionStore = new SequelizeStore();
 
 // Connect to postgres db via sequelize
-var connection = new Sequelize(process.env.PGDATABASE, process.env.PGUSER, process.env.PGPASSWORD, {
-  host: process.env.PGHOST,
-  dialect: "postgres",
-  port: process.env.PGPORT,
-  pool: {
-   max: 5,
-   min: 0,
-   idle: 10000
- }
-});
+var connection = new Sequelize(
+  process.env.PGDATABASE, 
+  process.env.PGUSER, 
+  process.env.PGPASSWORD, {
+    host: process.env.PGHOST,
+    dialect: "postgres",
+    storage: "./session.postgres",
+    port: process.env.PGPORT,
+    pool: {
+     max: 5,
+     min: 0,
+     idle: 10000
+    }
+  }
+);
+
 
 connection
   .authenticate()
@@ -59,6 +62,12 @@ passportLocalSequelize.attachToUser(User, {
     saltField: "mysalt"
 });
 
+// Store user login sessions
+var SequelizeStore = require('connect-session-sequelize')(session.Store);
+var sessionStore = new SequelizeStore({
+    db: connection
+  });
+sessionStore.sync();
 
 // Create table in database if not exists
 connection.sync();
@@ -76,7 +85,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 app.use(expressValidator());
 app.use(flash());
-app.use(require("express-session")({
+app.use(session({
   secret: 'process.env.SESSION_SECRET',
   // cookie: { secure: true }, // For https secure must be true
 	// store: sessionStore,
@@ -88,6 +97,23 @@ app.use(passport.session());
 passport.use(User.createStrategy());
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
+
+// Store user login sessions
+var SequelizeStore = require('connect-session-sequelize')(session.Store);
+var sessionStore = new SequelizeStore({
+    db: connection
+  });
+sessionStore.sync();
+
+app.use(session({
+  secret: 'process.env.SESSION_SECRET',
+  store: sessionStore,
+  cookie: { secure: true }, // For https secure must be true
+  proxy: true, // if you do SSL outside of node. 
+  resave: false,
+  saveUninitialized: false
+}));
+
 
 
 // ******* ROUTES ********
