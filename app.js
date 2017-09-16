@@ -9,8 +9,8 @@ var expressValidator = require('express-validator');
 var flash = require("connect-flash");
 var session = require("express-session");
 var passportLocalSequelize = require("passport-local-sequelize");
-// var User = require("./models/user");
 
+// Connect to postgres db via sequelize
 var connection = new Sequelize(
   process.env.PGDATABASE, 
   process.env.PGUSER, 
@@ -27,6 +27,7 @@ var connection = new Sequelize(
   }
 );
 
+
 connection
   .authenticate()
   .then(() => {
@@ -37,6 +38,7 @@ connection
   });
 
 // ******* Postgres MODELS ********
+
   var User = connection.define("user", {
     first: Sequelize.STRING,
     last: Sequelize.STRING,
@@ -61,15 +63,16 @@ passportLocalSequelize.attachToUser(User, {
     saltField: "mysalt"
 });
 
-// Create table in database if not exists
-connection.sync();
-
 // Store user login sessions
 var SequelizeStore = require('connect-session-sequelize')(session.Store);
 var sessionStore = new SequelizeStore({
     db: connection
   });
 sessionStore.sync();
+
+// Create table in database if not exists
+connection.sync();
+
 
 // Use node modules
 if (process.env.NODE_ENV != "production"){
@@ -97,7 +100,24 @@ passport.use(User.createStrategy());
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
-// module.exports = connection;
+
+// Store user login sessions
+var SequelizeStore = require('connect-session-sequelize')(session.Store);
+var sessionStore = new SequelizeStore({
+    db: connection
+  });
+sessionStore.sync();
+
+app.use(session({
+  secret: 'process.env.SESSION_SECRET',
+  store: sessionStore,
+  cookie: { secure: true }, // For https secure must be true
+  proxy: true, // if you do SSL outside of node. 
+  resave: false,
+  saveUninitialized: false
+}));
+
+
 
 // ******* ROUTES ********
 
